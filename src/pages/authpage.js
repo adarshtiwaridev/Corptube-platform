@@ -297,7 +297,7 @@ console.log(loginData)
           alt="logo"
           width={70}
           height={70}
-          // className="  opacity-80"
+          className="  opacity-80 object-cover"
         />BACK
     </>
   ) : (

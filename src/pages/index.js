@@ -7,7 +7,7 @@ import SkillsToExplore from "../Components/SkillsToExplore";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import Sidebar from "./Sidebar";
+import Sidebar from "../Components/Sidebar";
 
 // Sample array of posts
 const posts = [
