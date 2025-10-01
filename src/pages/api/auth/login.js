@@ -2,6 +2,7 @@ import dbConnect from '../../../lib/dbConnect';
 import users from '../../../models/users';
 import bcrypt from "bcryptjs";
 import { serialize } from "cookie";
+import jwt from "jsonwebtoken";
 import { loginSchema } from '../../../lib/zodSchemas/userSchema';
 
 export default async function handler(req, res) {
@@ -23,7 +24,7 @@ export default async function handler(req, res) {
     });
   }
 
-  const { userId  , password } = parsed.data;
+  const { userId, password } = parsed.data;
 
   try {
     const user = await users.findOne({ userId });
@@ -33,10 +34,8 @@ export default async function handler(req, res) {
         message: "User not found"
       });
     }
- 
+
     const isMatch = await bcrypt.compare(password, user.password);
-    // console.log(password);
-    // console.log(user.password);
     if (!isMatch) {
       return res.status(401).json({
         success: false,
@@ -44,15 +43,15 @@ export default async function handler(req, res) {
       });
     }
 
-    // Set cookie
-    const cookie = serialize("customUser", JSON.stringify({
-      id: user._id,
-      email: user.email,
-      fullName: user.fullName,
-     
-      accountType: user.accountType,
-      profilePhoto: user.profilePhoto,
-    }), {
+    // ✅ Generate JWT
+    const token = jwt.sign(
+      { id: user._id, email: user.email }, // payload
+      process.env.JWT_SECRET,             // secret key
+      { expiresIn: "7d" }                 // expiry
+    );
+
+    // ✅ Store token in httpOnly cookie
+    const cookie = serialize("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
@@ -61,14 +60,15 @@ export default async function handler(req, res) {
     });
 
     res.setHeader("Set-Cookie", cookie);
+
     return res.status(200).json({
       success: true,
       message: "Login successful",
+      token, // optional: return token in body too (useful for mobile apps)
       data: {
         id: user._id,
         fullName: user.fullName,
         email: user.email,
-      
         accountType: user.accountType,
         profilePhoto: user.profilePhoto,
       }
