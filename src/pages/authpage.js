@@ -285,19 +285,18 @@ console.log(loginData)
   pb-[150px] lg:pb-[300px]
   `}
 >
-  <h2 className="uppercase text-3xl lg:text-[70px] leading-tight text-white font-bold flex items-center gap-1">
+  <h2 className="uppercase text-3xl lg:text-[70px] leading-tight text-white font-bold  gap-1">
     {/* <h2 className="uppercase text-3xl lg:text-[70px] leading-tight text-white font-bold"> */}
 
   {activeForm === "login" ? (
     <>
-      WELCOME  Back
-        
+      WELCOME
         <Image
           src="/assets/corptube_logo-bgRemoved.png"
           alt="logo"
           width={70}
           height={70}
-          className="  opacity-80 object-cover"
+          className="  opacity-100 object-cover translate-x-50"
         />BACK
     </>
   ) : (
@@ -305,13 +304,13 @@ console.log(loginData)
       WELCOME <br /> 
       <span className="flex items-center gap-2">
         Back
-        <br></br>
+        
         <Image
           src="/assets/corptube_logo-bgRemoved.png"
           alt="logo"
           width={60}
           height={60}
-          // className=" inline-block opacity-80"
+          className=" inline-block"
         />
       </span>
     </>
