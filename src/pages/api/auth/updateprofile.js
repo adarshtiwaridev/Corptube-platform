@@ -3,6 +3,7 @@ import dbConnect from "../../../lib/dbConnect";
 import User from "../../../models/users";
 import jwt from "jsonwebtoken";
 
+
 export default async function handler(req, res) {
   if (req.method !== "PATCH") {
     return res.status(405).json({ message: "Method not allowed" });
