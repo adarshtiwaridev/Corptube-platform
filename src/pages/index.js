@@ -84,8 +84,10 @@ const HomePage = () => {
       {/* BUSINESS NEWS */}
       <section>
         <div className="flex justify-between">
-        <h2 className="text-5xl  text-heading   mb-4">BUSINESS NEWS</h2>
-       <Link href={"/authpage"}><button className="text-white text-xl bg-indigo-700 rounded-r-full rounded-l-full px-8 mb-5 cursor-pointer  py-2">Login</button></Link> 
+        <h2 className="text-5xl text-heading mb-4">BUSINESS NEWS</h2>
+        <Link href="/authpage" className="text-white text-xl bg-gradient-to-b from-[#7127E9] via-[#6B37BF] to-[#401683] rounded-r-full rounded-l-full px-8 mb-5 cursor-pointer ">
+         <p className="mt-2">Login</p>
+        </Link>
         </div>
 
         {/* Dropdowns */}
@@ -118,7 +120,7 @@ const HomePage = () => {
 
       {/* POSTS TO EXPLORE */}
       <section className="mt-10">
-        <h2 className="text-5xl  text-heading   mb-6">POSTS TO EXPLORE</h2>
+        <h2 className="text-5xl text-heading mb-6">POSTS TO EXPLORE</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ml-11 mr-11 gap-6">
           {posts.map((post) => (
@@ -170,47 +172,45 @@ const HomePage = () => {
 
         <div className=" ml-11 mr-11 rounded-r-4xl rounded-l-4xl bg-gradient-to-b from-[#164CD7] to-[#999999] p-1 shadow-lg">
           {/* Logo + Buttons */}
-          <div className="flex gap-4 items-center bg-[#140808] rounded-r-4xl rounded-l-4xl p-4">
+          <div className="flex gap-6 items-center bg-[#140808] rounded-r-4xl rounded-l-4xl p-8 w-full h-auto">
 
-          
-          <div className="flex flex-col items-center">
-        
-              <Image
-                src={project.logo}
-                alt={project.name}
-                width={80}
-                height={80}
-                 
-              />
-     
+{/* Left Section */}
+<div className="flex flex-col items-center">
+  <Image
+    src={project.logo}
+    alt={project.name}
+    width={120}   // increased from 80
+    height={120}  // increased from 80
+  />
 
-            <div className="flex flex-col bg-[#1E1E1E] rounded-4xl p-4 border border-white gap-3 mt-4">
-              <button className="px-3 py-2 rounded-md bg-[#575FFE] text-white text-sm">
-                INTERACT
-              </button>
-              <button className="px-3 py-2 rounded-md bg-[#575FFE] text-white text-sm">
-                SUPPORT
-              </button>
-              <button className="px-3 py-2 rounded-md bg-[#575FFE] text-white text-sm">
-                SAVE
-              </button>
-            </div>
-          </div>
+  <div className="flex flex-col bg-[#1E1E1E] rounded-4xl p-6 border border-white gap-4 mt-6">
+    <button className="px-5 py-3 rounded-md bg-[#575FFE] text-white text-base">
+      INTERACT
+    </button>
+    <button className="px-5 py-3 rounded-md bg-[#575FFE] text-white text-base">
+      SUPPORT
+    </button>
+    <button className="px-5 py-3 rounded-md bg-[#575FFE] text-white text-base">
+      SAVE
+    </button>
+  </div>
+</div>
 
-          {/* Project Content */}
-          <div className="flex-1 bg-[#1E1E1E] p-4 rounded-3xl border border-white">
-            <h3 className="text-lg font-bold">{project.name}</h3>
-            <p className="text-sm font-semibold mt-1">
-              Stage: {project.stage}
-            </p>
-            <p className="text-sm font-semibold">
-              ROLE OFFERED: {project.role}
-            </p>
-            <p className="text-sm mt-4 leading-relaxed whitespace-pre-line">
-              {project.description}
-            </p>
-          </div>
-          </div>
+{/* Right Section */}
+<div className="flex-1 bg-[#1E1E1E] p-6 rounded-3xl border border-white">
+  <h3 className="text-2xl font-bold">{project.name}</h3>
+  <p className="text-lg font-semibold mt-2">
+    Stage: {project.stage}
+  </p>
+  <p className="text-lg font-semibold">
+    ROLE OFFERED: {project.role}
+  </p>
+  <p className="text-2xl mt-6  leading-relaxed whitespace-pre-line">
+    {project.description}
+  </p>
+</div>
+</div>
+
         </div>
 
         {/* See More Projects Button */}
