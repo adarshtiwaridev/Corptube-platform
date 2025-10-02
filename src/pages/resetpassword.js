@@ -58,8 +58,8 @@ const ResetPasswordView = () => {
   };
 
   return (
-    <div className="flex-1 w-full flex items-center justify-center">
-      <div className="w-full max-w-md h-[24rem] mt-10 p-6 bg-black/60 border-4 border-blue-500 rounded-xl shadow-lg">
+    <div className="flex-1 w-full h-full pt-10  py-69 flex items-center justify-center bg-black">
+      <div className="w-full max-w-md h-[24rem] bg-black mt-10 p-6  border-4 border-blue-500 rounded-xl shadow-lg">
         <h2 className="text-3xl font-bold text-white mb-6 text-center">
           Reset Password
         </h2>
