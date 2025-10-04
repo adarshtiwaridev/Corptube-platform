@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import Sidebar from "../Components/Sidebar";
+import { useRouter } from "next/navigation";
 
 // Sample array of posts
 const posts = [
@@ -65,16 +66,14 @@ const project = {
 };
 
 const HomePage = () => {
-
+ const router = useRouter();
   const [dropdowns, setDropdowns] = useState({
     international: false,
     national: false,
     stock: false,
   });
 
-  const toggleDropdown = (key) => {
-    setDropdowns((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
+ 
 
   return (
     <div className=" bg-gray-900">
@@ -86,35 +85,35 @@ const HomePage = () => {
         <div className="flex justify-between">
         <h2 className="text-5xl text-heading mb-4">BUSINESS NEWS</h2>
         <Link href="/authpage" className="text-white text-xl bg-gradient-to-b from-[#7127E9] via-[#6B37BF] to-[#401683] rounded-r-full rounded-l-full px-8 mb-5 cursor-pointer ">
-         <p className="mt-2">Login</p>
+         <p className="mt-2">Start Growing</p>
         </Link>
         </div>
 
-        {/* Dropdowns */}
+        
         <div className="space-y-3 ml-11 mr-11">
           <button
-            onClick={() => toggleDropdown("international")}
-            className="w-full text-3xl bg-[#1E1E1E] flex justify-between items-center border border-blue-400 border-b-[#220FCD] border-b-2 px-4 py-2 rounded-md"
+            onClick={() =>  router.push("/news/international")}
+            className="w-full cursor-pointer text-3xl bg-[#1E1E1E] flex justify-between items-center border border-blue-400 border-b-[#220FCD] border-b-2 px-4 py-2 rounded-md"
           >
             INTERNATIONAL NEWS
             <div className="text-black bg-white square-aspect-ratio w-10 h-10 rounded-full p-2"><p className="text-xl">{dropdowns.international ? "▲" : "▼"}</p></div>
           </button>
 
           <button
-            onClick={() => toggleDropdown("national")}
-            className="w-full text-3xl bg-[#1E1E1E] flex justify-between items-center border border-blue-400 border-b-[#220FCD] border-b-2 px-4 py-2 rounded-md"
+            onClick={() => router.push("/news/national")}
+            className="w-full cursor-pointer text-3xl bg-[#1E1E1E] flex justify-between items-center border border-blue-400 border-b-[#220FCD] border-b-2 px-4 py-2 rounded-md"
           >
             NATIONAL NEWS
-            <div className="text-black bg-white square-aspect-ratio w-10 h-10 rounded-full p-2"><p className="text-xl">{dropdowns.national ? "▲" : "▼"}</p></div>
+            <div className="text-black cursor-pointer bg-white square-aspect-ratio w-10 h-10 rounded-full p-2"><p className="text-xl">{dropdowns.national ? "▲" : "▼"}</p></div>
           </button>
 
           <button
-            onClick={() => toggleDropdown("stock")}
-            className="w-full text-3xl bg-[#1E1E1E] flex justify-between items-center border border-blue-400 border-b-[#220FCD] border-b-2 px-4 py-2 rounded-md"
+            onClick={() =>  router.push("/news/stock")}
+            className="w-full cursor-pointer text-3xl bg-[#1E1E1E] flex justify-between items-center border border-blue-400 border-b-[#220FCD] border-b-2 px-4 py-2 rounded-md"
           >
             STOCK NEWS
-            <div className="text-black bg-white square-aspect-ratio w-10 h-10 rounded-full p-2"><p className="text-xl">{dropdowns.stock ? "▲" : "▼"}</p></div>
-          </button>
+            <div className="text-black cursor-pointer bg-white square-aspect-ratio w-10 h-10 rounded-full p-2"><p className="text-xl">{dropdowns.stock ? "▲" : "▼"}</p></div>
+          </button> 
         </div>
       </section>
 
