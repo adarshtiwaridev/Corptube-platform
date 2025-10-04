@@ -14,19 +14,19 @@ export default function PostDetails() {
     name: name ? name.toUpperCase() : "LOADING...",
     category: "UI/UX Designer",
     role: "SUPPORT",
-    profileImg: "/assets/Polygon 21.jpg",
-    coverImg: "/assets/comingsoon-bg.jpg",
+    profileImg: "/assets/Polygon21.png",
+    coverImg: "/assets/landingphoto/Rectangle40.png",
   };
 
   return (
     <div>
    <Sidebar/>
         
-    <div className="flex flex-col md:flex-row justify-center items-center min-h-screen bg-[#0f0f0f] text-white p-4 md:p-10">
+    <div className="flex flex-col md:flex-row justify-center items-center min-h-screen bg-[#0f0f0f] text-white  md:p-10">
       
 
       {/* LEFT SIDE */}
-      <div className="relative flex-1 bg-black rounded-3xl overflow-hidden shadow-xl max-w-md md:max-w-lg mb-6 md:mb-0">
+      <div className="relative z-40 flex-1 rounded-3xl overflow-hidden  max-w-md md:max-w-lg mb-6 md:mb-0">
         <Image
           src={person.coverImg}
           alt="Cover Background"
@@ -36,7 +36,7 @@ export default function PostDetails() {
           priority
         />
 
-        <div className="absolute inset-0 flex flex-col justify-end items-center text-center p-6 bg-gradient-to-t from-black/80 via-transparent">
+        <div className="absolute inset-0 flex flex-col justify-end items-center text-center p-6  ">
           <h3 className="text-xs sm:text-sm font-semibold mb-2 tracking-wide">
             OPEN RECRUITMENT DPS CLASS
           </h3>
@@ -62,22 +62,30 @@ export default function PostDetails() {
       </div>
 
       {/* RIGHT SIDE */}
-      <div className="relative flex-1 bg-[#4A6CF7] rounded-3xl p-6 sm:p-8 shadow-xl max-w-md text-white">
+      <div className="relative -ml-3 z-20  flex-1 bg-[#575FFE] rounded-3xl p-6 sm:p-8 shadow-xl max-w-md text-white">
         {/* Top Right Back Button */}
         <Link
           href="/"
           aria-label="Go Back"
-          className="absolute top-4 right-4 bg-[#1e90ff] hover:bg-[#3679f4] p-3 rounded-full shadow-md transition"
+          className="absolute -top-12 -right-12   rounded-full  transition"
         >
-          <ArrowLeft />
+          
+              <Image 
+                src="/assets/back-btn.png" 
+                alt="Back-btn"
+                width={24}                 
+                height={24}                
+                className="w-16 h-16 rounded-full hover:bg-indigo-600 transition-colors"  
+              />
+         
         </Link>
 
         {/* Icons Row */}
         <div className="flex justify-center gap-6 mb-6 mt-10">
           {[
-            { src: "/assets/icon-growth.png", alt: "Growth" },
-            { src: "/assets/icon-chat.png", alt: "Chat" },
-            { src: "/assets/icon-book.png", alt: "Book" },
+            { src: "/assets/landingphoto/growth.png", alt: "Growth" },
+            { src: "/assets/landingphoto/chat.png", alt: "Chat" },
+            { src: "/assets/landingphoto/book.png", alt: "Book" },
           ].map((icon, index) => (
             <div
               key={index}
@@ -89,7 +97,7 @@ export default function PostDetails() {
         </div>
 
         {/* Profile Card */}
-        <div className="bg-[#5A7BFF] rounded-2xl p-4 shadow-md mb-6 flex flex-col sm:flex-row items-center gap-4">
+        <div className="bg-[#0493FB] rounded-2xl p-4 shadow-md mb-6 flex flex-col sm:flex-row items-center gap-4">
           <Image
             src={person.profileImg}
             alt="Profile"
@@ -107,11 +115,11 @@ export default function PostDetails() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-col gap-3">
+        <div className="flex bg-white p-5 rounded-4xl flex-col gap-3">
           {["VIEW", "PORTFOLIO", "INTERACT"].map((label) => (
             <button
               key={label}
-              className="bg-white text-[#1e90ff] font-bold py-3 rounded-2xl shadow-lg hover:bg-[#f2f2f2] active:scale-95 transition"
+              className="bg-[#575FFE] cursor-pointer text-white font-bold py-3 rounded-2xl shadow-lg   active:scale-95 transition"
             >
               {label}
             </button>
