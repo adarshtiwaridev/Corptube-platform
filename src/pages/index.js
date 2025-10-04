@@ -218,7 +218,7 @@ const HomePage = () => {
         
            <p className="text-white mt-3 text-3xl">SEE MORE PROJECTS</p>
             <div className="square-aspect-ratio  ">
-            <Image src="/assets/landingphoto/Ellipse 7.png" alt="arrow-down" width={60} height={60} />
+            <Image src="/assets/landingphoto/Ellipse7.png" alt="arrow-down" width={60} height={60} />
             </div>
         </div>
       </div>
