@@ -91,14 +91,15 @@ const Dashboard = () => {
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between rounded-2xl bg-[#575FFE] p-6 gap-6">
                   {/* Name + Category */}
                   <div>
-                    <h1 className="text-6xl font-sans font-extrabold tracking-tight">Name</h1>
+                    <h1 className="font-sans font-extrabold tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl ">Name</h1>
+
                     <p className="text-white/90 text-2xl font-sans">(Category)</p>
                   </div>
 
                   {/* Stats + Actions */}
                   <div className="flex flex-wrap items-center gap-6">
                     {/* Stats */}
-                    <div className="font-sans rounded-3xl bg-white w-48 h-44 flex flex-col justify-center items-center gap-3 p-3">
+                    <div className="font-sans rounded-3xl bg-white w-25 h-25  sm:w-30 sm:h-30  md:w-37 md:h-37  lg:w-45 lg:h-45  xl:w-72 xl:h-64  flex flex-col justify-center items-center gap-3 p-3">
                       <div className="rounded-2xl bg-[#575FFE] w-full h-1/2 flex flex-col justify-center items-center text-center cursor-pointer hover:bg-gray-600">
                         <p className="text-3xl font-bold">1000</p>
                         <p className="text-xs uppercase tracking-wider">Supporting</p>
@@ -110,7 +111,7 @@ const Dashboard = () => {
                     </div>
 
                     {/* Actions */}
-                    <div className="rounded-3xl w-48 h-44 flex flex-col justify-center items-center gap-2 bg-white font-sans p-3">
+                    <div className="rounded-3xl w-25 h-25  sm:w-30 sm:h-30  md:w-37 md:h-37  lg:w-45 lg:h-45  xl:w-72 xl:h-64 flex flex-col justify-center items-center gap-2 bg-white font-sans p-3">
                       <button className="w-full h-1/3 uppercase rounded-full bg-[#575FFE] text-white text-xl px-4 py-2 font-semibold transition-transform duration-200 hover:scale-[1.025] hover:bg-gray-600">
                         Support
                       </button>

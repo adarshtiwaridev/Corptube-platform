@@ -31,7 +31,7 @@ export default function Sidebar() {
 
   return (
     <div className="main h-full w-full">
-      <section className="sidebar w-[4%] fixed top-0 left-0 h-screen bg-gray-900">
+      <section className="sidebar w-[4%] fixed top-0 left-0 h-screen bg-gray-900 ml-2">
         <div className="sidebar-content h-full flex flex-col justify-between">
           {/* Logo Section */}
           <div className="logo border-2 border-gray-500 border-t-0 flex justify-center items-center p-1 pb-2.5 pt-3">
@@ -41,13 +41,13 @@ export default function Sidebar() {
                 alt="Company Logo"
                 width={50}
                 height={50}
-                className="logo-img w-[100%]"
+                className="logo-img w-[3.2vw] "
               />
             </Link>
           </div>
 
           {/* Middle Icons Section */}
-          <div className="mid-icons border-2 border-gray-500 border-t-0 flex flex-col items-center gap-6 pt-9 pb-12 px-2">
+          <div className="mid-icons border-2 border-gray-500 border-t-0 flex flex-col items-center gap-6 pt-14 pb-12 px-2">
             {/* Example icons */}
             <Image
               src="/assets/27.png"
@@ -77,20 +77,24 @@ export default function Sidebar() {
               height={40}
               className="cursor-pointer"
             />
+            <Link href="/uploads">
+              <Image
+                src="/assets/5 4.png"
+                alt="Icon 5"
+                width={41}
+                height={40}
+                className="cursor-pointer"
+              />
+            </Link>
+            
             <Image
-              src="/assets/54.png"
-              alt="Icon 5"
-              width={41}
-              height={40}
-              className="cursor-pointer"
+            src="/assets/8 3.png"
+            alt="uploads-icon"
+            width={40}
+            height={40}
+            className="cursor-pointer"
             />
-            <Image
-              src="/assets/83.png"
-              alt="Icon 6"
-              width={40}
-              height={40}
-              className="cursor-pointer"
-            />
+           
           </div>
 
           {/* Settings Icon Section */}
