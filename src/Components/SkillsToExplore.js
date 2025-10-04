@@ -43,12 +43,14 @@ function SkillCard({ skill }) {
 // Special "See More" card
 function SeeMoreCard() {
   return (
-    <div className="bg-gradient-to-r from-[#140808] to-[#837575] border-1 border-[#FFF2F2] ml-10 rounded-2xl shadow-md w-74 flex flex-col items-center justify-center relative">
+    
+    <Link href="/skills" className="bg-gradient-to-r from-[#140808] to-[#837575] border-1 border-[#FFF2F2] ml-10 cursor-pointer rounded-2xl shadow-md w-74 flex flex-col items-center justify-center relative">
       <div className="w-20 h-20 flex items-center justify-center bg-black rounded-full border border-neutral-700">
         <span className="text-4xl font-bold">›</span>
       </div>
       <p className="font-bold text-lg mt-2">SEE MORE</p>
-    </div>
+    </Link>
+
   );
 }
 

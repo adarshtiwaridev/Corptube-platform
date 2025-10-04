@@ -217,9 +217,9 @@ const HomePage = () => {
         <div className="flex  justify-between rounded-r-full rounded-l-full w-full bg-[#140808] p-4">
         
            <p className="text-white mt-3 text-3xl">SEE MORE PROJECTS</p>
-            <div className="square-aspect-ratio  ">
+            <Link href="/projects/moreprojects" className="square-aspect-ratio  ">
             <Image src="/assets/landingphoto/Ellipse7.png" alt="arrow-down" width={60} height={60} />
-            </div>
+            </Link>
         </div>
       </div>
       </section>
