@@ -347,6 +347,7 @@ const settingsOptions = [
   { id: 1, title: 'UPDATE PROFILE', key: 'updateProfile', iconSrc: '/assets/Polygon 28 (1).png', href: '/profile/update' },
   { id: 2, title: 'UPDATE PASSWORD', key: 'updatePassword', iconSrc: '/assets/Polygon 29.png', href: '/password/update' },
   { id: 3, title: 'ABOUT US', key: 'aboutUs', iconSrc: '/assets/Polygon 30.png', href: '/about' },
+  { id: 3, title: 'DELETE ACCOUNT', key: 'accountDelete', iconSrc: '/assets/Polygon 30.png', href: '/accountDelete' },
 ];
 
 // Reusable component for the settings button row (MODIFIED to accept click handler for the arrow)
