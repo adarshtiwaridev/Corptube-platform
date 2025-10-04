@@ -6,13 +6,13 @@ import Image from "next/image";
 // Reusable skill card
 function SkillCard({ skill }) {
   return (
-    <div className=" bg-gradient-to-r from-[#140808] to-[#837575]  ml-11  rounded-2xl shadow-md border-1 border-[#FFF2F2] w-64 flex flex-col items-center p-4 relative">
+    <div className="h-[50vh] bg-gradient-to-r from-[#140808] to-[#837575]  ml-11  rounded-2xl shadow-md border-1 border-[#FFF2F2]  flex flex-col items-center p-4 relative">
       {/* Octagon Icon */}
  
-        <Image src="/assets/landingphoto/Polygon 17.png" alt="Octagon" width={150} height={150} />
+        <Image src="/assets/landingphoto/Polygon 17.png" alt="Octagon" width={230} height={230} />
     
 
-     <div className="flex flex-col bg-black rounded-2xl p-4 border border-white mt-2 w-full items-center">
+     <div className="flex flex-col bg-black rounded-2xl p-4 border border-white mt-4 w-full items-center">
       {/* Title */}
       <div className="mt-4 text-center">
         <h3 className="font-bold text-white text-sm">
@@ -22,14 +22,14 @@ function SkillCard({ skill }) {
       </div>
 
       {/* Buttons */}
-      <div className="flex gap-2 mt-3">
+      <div className="flex gap-6 mt-3">
         <Link
           href={`/skills/${skill.id}`}
-          className="px-3 border-1 border-[#FFF2F2] py-1  bg-[#2E25B5] text-xs font-semibold rounded-md  "
+          className="px-3 scale-125 border-1 border-[#FFF2F2] py-1  bg-[#2E25B5] text-xs font-semibold rounded-md  "
         >
           LEARN
         </Link>
-        <button className="px-3 border-1 border-[#FFF2F2] py-1 bg-[#2E25B5] text-xs font-semibold rounded-md  ">
+        <button className="px-3 scale-125 border-1 border-[#FFF2F2] py-1 bg-[#2E25B5] text-xs font-semibold rounded-md  ">
           SAVE
         </button>
       </div>
@@ -43,7 +43,7 @@ function SkillCard({ skill }) {
 // Special "See More" card
 function SeeMoreCard() {
   return (
-    <div className="bg-gradient-to-r from-[#140808] to-[#837575] border-1 border-[#FFF2F2] rounded-2xl shadow-md w-64 flex flex-col items-center justify-center relative">
+    <div className="bg-gradient-to-r from-[#140808] to-[#837575] border-1 border-[#FFF2F2] ml-10 rounded-2xl shadow-md w-74 flex flex-col items-center justify-center relative">
       <div className="w-20 h-20 flex items-center justify-center bg-black rounded-full border border-neutral-700">
         <span className="text-4xl font-bold">›</span>
       </div>
@@ -94,7 +94,7 @@ export default function SkillsToExplore() {
         SKILLS TO EXPLORE
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-4  mr-4 ml-6">
+      <div className="grid  grid-cols-1 md:grid-cols-4 g">
      
         {skills.map((skill) => (
           <SkillCard key={skill.id} skill={skill} />
