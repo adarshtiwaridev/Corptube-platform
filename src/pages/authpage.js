@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { loginSchema, signupSchema, forgotPasswordSchema } from "../lib/zodSchemas/userSchema";
 import Image from "next/image";
+
+
 const AuthPage = () => {
   const [activeForm, setActiveForm] = useState("login");
   const [showPassword, setShowPassword] = useState(false);
@@ -163,7 +165,7 @@ console.log(loginData)
   className={`absolute top-0 left-0 w-full md:w-2/5 h-full flex flex-col justify-center px-6 sm:px-10 lg:px-[70px]
   ${activeForm !== "login" ? "hidden" : ""}`}
 >
-  <h2 className="text-white font-extrabold text-3xl sm:text-4xl text-center">Login</h2>
+  <h2 className="text-white font-bold text-4xl sm:text-4xl text-center">Login</h2>
 
 <form onSubmit={handleLoginSubmit} className="mt-8 space-y-6">
   {/* Error Message */}
@@ -175,7 +177,7 @@ console.log(loginData)
 
   {/* userid */}
   <div className="w-full">
-    <label className="block text-white text-md font-bold mb-2">
+    <label className="block text-white text-md text-xl font-medium mb-2">
       User ID
     </label>
     <div className="flex items-center border-b-2 border-white/40 px-3 py-2 focus-within:border-[#8e4eed] transition">
@@ -201,7 +203,7 @@ console.log(loginData)
 
   {/* password */}
   <div className="w-full">
-    <label className="block text-white text-md font-bold mb-2">
+    <label className="block text-white text-md text-xl font-medium mb-2">
       Password
     </label>
     <div className="flex items-center border-b-2 border-white/40 px-3 py-2 focus-within:border-[#8e4eed] transition">
@@ -246,9 +248,12 @@ console.log(loginData)
     <button
       type="submit"
       disabled={isLoading}
-      className="relative w-full h-[45px] rounded-full border-2 border-[#401683] font-semibold overflow-hidden z-10 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+      className="relative w-full h-[45px] rounded-full border-2 border-[#401683] font-semibold overflow-hidden z-10 text-white disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-t 
+        from-[#7127E9] 
+        via-[#6B37BF] via-[49%] 
+        to-[#401683]  "
     >
-      <span className="absolute -top-full left-0 w-full h-[300%] bg-gradient-to-b from-[#7127E9] via-[#6B37BF] to-[#401683] z-[-1] transition-all duration-500 hover:top-0"></span>
+      <span className="absolute -top-full left-0 w-full h-[300%]  z-[-1] transition-all duration-500 "></span>
       {isLoading ? "Logging in..." : "Login"}
     </button>
   </div>
@@ -285,65 +290,68 @@ console.log(loginData)
   pb-[150px] lg:pb-[300px]
   `}
 >
-  <h2 className="uppercase text-3xl lg:text-[70px] leading-tight text-white font-bold  gap-1">
+  <h2 className="uppercase text-3xl lg:text-[90px] leading-tight text-white font-bold">
     {/* <h2 className="uppercase text-3xl lg:text-[70px] leading-tight text-white font-bold"> */}
 
   {activeForm === "login" ? (
     <>
       WELCOME
-        <Image
+        <div className="flex flex-row justify-end items-center">
+          <Image
           src="/assets/corptube_logo-bgRemoved.png"
           alt="logo"
-          width={70}
-          height={70}
-          className="  opacity-100 object-cover translate-x-50"
-        />BACK
+          width={90}
+          height={90}
+          className="pt-2.5 "
+        /><p>BACK</p>
+        </div>
     </>
   ) : (
     <>
-      WELCOME <br /> 
-      <span className="flex items-center gap-2">
-        Back
-        
-        <Image
-          src="/assets/corptube_logo-bgRemoved.png"
-          alt="logo"
-          width={60}
-          height={60}
-          className=" inline-block"
-        />
-      </span>
+      <div className="text-7xl">WELCOME TO
+          <div className="flex flex-row justify-end items-center ">
+            <Image
+            src="/assets/corptube_logo-bgRemoved.png"
+            alt="logo"
+            width={100}
+            height={100}
+            className="pt-2.5 translate-x-3.5"
+          /><p>orptube</p>
+          </div>
+        </div>
     </>
   )}
 </h2>
 
-  <p
-    className={`text-base lg:text-lg max-w-[240px] mt-4 text-white
+  <div
+    className={`text-base lg:text-xl  mt-4 text-white 
     ${activeForm === "login" ? "" : ""}`}
   >
     {activeForm === "login" ? (
       <>
-        To India’s own social app <b>Corptube</b>. For India By the Indians.
+        <p className='translate-x-50.5 max-w-[240px]'>To India’s own social app <b>Corptube</b>. For India By the Indians.</p>
       </>
     ) : (
-      <>We’re delighted to have you here. If you need any assistance, feel free to reach out.</>
+      <>
+      <p className='translate-x-54 max-w-[250px]'>We’re delighted to have you here. If you need any assistance, feel free to reach out.</p>
+      </>
     )}
-  </p>
+  </div>
 </div>
 
 
 
 {/* Register Form */}
 <div
-  className={`absolute font-sans top-0 left-0 w-full md:w-2/5 h-full flex flex-col justify-center px-6 md:px-12 lg:px-[60px] transition-all duration-500 ${
+  className={`absolute  top-0 left-0 w-full md:w-2/5 h-full flex flex-col justify-center px-6 md:px-12 lg:px-[60px] transition-all duration-500 ${
     activeForm !== "register" ? "hidden" : "flex"
   }`}
 >
-  <h2 className="text-3xl lg:text-3xl font-bold text-center text-white">
+  <h2 className="text-3xl lg:text-4xl font-bold text-center text-white">
     Sign Up
   </h2>
 
- <form onSubmit={handleRegisterSubmit} className="mt-2 space-y-2">
+ <form onSubmit={handleRegisterSubmit} className="mt-7.5 space-y-2">
   {/* Error Message */}
   {error && (
     <div className="text-red-400 text-sm text-center bg-red-400/10 border border-red-400/20 rounded-lg p-3">
@@ -353,7 +361,7 @@ console.log(loginData)
 
   {/* Full Name */}
   <div className="relative">
-    <label className="block text-white text-lg font-medium mb-2">
+    <label className="block text-white text-lg font-medium mb-1">
       Full Name
     </label>
     <div className="flex items-center border-b-2 border-white focus-within:border-[#8e4eed]">
@@ -378,7 +386,7 @@ console.log(loginData)
 
   {/* Email */}
   <div className="relative">
-    <label className="block text-white text-lg font-medium mb-2">
+    <label className="block text-white text-lg font-medium mb-1">
       Email Address
     </label>
     <div className="flex items-center border-b-2 border-white focus-within:border-[#8e4eed]">
@@ -403,7 +411,7 @@ console.log(loginData)
 
   {/* UserId */}
   <div className="relative">
-    <label className="block text-white text-lg font-medium mb-2">
+    <label className="block text-white text-lg font-medium mb-1">
       UserId
     </label>
     <div className="flex items-center border-b-2 border-white focus-within:border-[#8e4eed]">
@@ -434,7 +442,7 @@ console.log(loginData)
       onChange={(e) =>
         setRegisterData({ ...registerData, accountType: e.target.value })
       }
-      className="w-full border-b-2 border-white bg-transparent focus:border-[#8e4eed] outline-none text-white font-medium text-lg py-2"
+      className="w-full border-b-2 border-white bg-transparent focus:border-[#8e4eed] outline-none text-white font-medium text-lg py-3"
     >
       <option className="text-black" value="">
         Select Category
@@ -456,7 +464,7 @@ console.log(loginData)
 
   {/* Password */}
   <div className="relative">
-    <label className="block text-white text-lg font-medium mb-2">
+    <label className="block text-white text-lg font-medium mb-1 pt-1">
       Password
     </label>
     <div className="flex items-center border-b-2 border-white focus-within:border-[#8e4eed]">
@@ -520,7 +528,10 @@ console.log(loginData)
     <button
       type="submit"
       disabled={isLoading}
-      className="relative w-full h-[45px] rounded-full border-2 border-[#401683] font-semibold overflow-hidden text-white disabled:opacity-50 disabled:cursor-not-allowed"
+      className="relative w-full h-[45px] rounded-full border-2 border-[#401683] font-semibold overflow-hidden text-white disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-t 
+        from-[#7127E9] 
+        via-[#6B37BF] via-[49%] 
+        to-[#401683]"
     >
       <span className="absolute -top-full left-0 w-full h-[300%] bg-gradient-to-b from-[#7127E9] via-[#6B37BF] to-[#401683] z-[-1] transition-all duration-500 hover:top-0"></span>
       {isLoading ? "Creating Account..." : "Sign Up"}
@@ -621,3 +632,16 @@ console.log(loginData)
 };
 
 export default AuthPage;
+
+
+
+
+
+
+
+
+
+
+
+
+

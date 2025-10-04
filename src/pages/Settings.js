@@ -159,7 +159,7 @@ const UpdateProfileView = ({ user }) => {
 };
 
 const AboutUsView = () => (
-  <div className="flex-1 w-full flex items-center justify-center bg-black py-20 px-6">
+  <div className="flex-1 w-full flex items-center justify-center bg-black py-15 px-6">
     <div className="max-w-4xl border-4 border-blue-500 rounded-2xl p-10 text-center shadow-lg">
       <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-wide">
         About <span className="text-blue-400">CORPTUBE</span>
@@ -353,8 +353,9 @@ const settingsOptions = [
 const SettingButton = ({ title, iconSrc, onInternalArrowClick }) => (
   <div 
     onClick={onInternalArrowClick}
-    className={`font-sans font-bold flex items-center justify-between p-4 my-12 rounded-lg cursor-pointer transition-all duration-200 
+    className={` font-bold flex items-center justify-between p-4 my-12 rounded-lg cursor-pointer transition-all duration-200 
                 bg-gray-800 text-white shadow-md border-2 border-white hover:bg-gray-600`}
+    
   >
     <div className="flex items-center flex-grow">
       <div className="flex items-center">
@@ -373,9 +374,12 @@ const SettingButton = ({ title, iconSrc, onInternalArrowClick }) => (
 
 // Header + Menu container that can morph to tabs on subviews
 const HeaderAndMenu = ({ isSubview, currentView, onBack, onGo, children }) => (
-  <div className={`font-sans font-bold w-[85rem] h-full bg-black rounded-xl p-6 ${styles.mainContainerGlow}`}>
+  <div className={` font-bold  w-[90vw] h-full bg-black rounded-xl p-4 sm:p-6 ${styles.mainContainerGlow}`}>
+
       <div className="content-center flex justify-between items-center pb-4 mb-6 border-b-2 border-indigo-800">
-          <h1 className="text-3xl font-sans font-bold text-white tracking-widest  border-3 px-128 py-3.5 m-2.5 rounded-2xl border-indigo-600 shadow-2xl">SETTINGS</h1>
+
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-widest  border-3 px-15 sm:px-32 md:px-44 lg:px-72 xl:px-128 py-3.5 m-2.5 rounded-2xl border-indigo-600 shadow-2xl">SETTINGS</h1>
+
           {isSubview ? (
             <Image 
               onClick={onBack}
@@ -407,7 +411,8 @@ const HeaderAndMenu = ({ isSubview, currentView, onBack, onGo, children }) => (
               className={`${styles.tabItem} ${currentView === option.key ? styles.tabItemActive : ''}`}
               onClick={() => onGo(option.key)}
             >
-              <div className="flex items-center gap-3">
+              {/* <div className="flex items-center gap-3"> */}
+              <div className="flex items-center gap-2 sm:gap-3">
                 <Image src={option.iconSrc} alt={`${option.title} icon`} width={40} height={40} />
                 <span className="text-lg tracking-wider">{option.title}</span>
               </div>
@@ -466,6 +471,7 @@ export default function SettingPage() {
     </div>
   );
 }
+
 
 
 
