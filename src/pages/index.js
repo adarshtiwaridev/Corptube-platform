@@ -15,37 +15,37 @@ const posts = [
   {
     id: 1,
     title: "Coming Soon",
-    image: "/assets/landingphoto/Rectangle 40.png",
+    image: "/assets/landingphoto/Rectangle40.png",
     link: "/posts/coming-soon",
   },
   {
     id: 2,
     title: "Background Motion",
-    image: "/assets/landingphoto/Rectangle 153.png",
+    image: "/assets/landingphoto/Rectangle153.png",
     link: "/posts/background-motion",
   },
   {
     id: 3,
     title: "Think Just Start",
-    image: "/assets/landingphoto/Rectangle 154.png",
+    image: "/assets/landingphoto/Rectangle154.png",
     link: "/posts/think-start",
   },
   {
     id: 4,
     title: "Wednesday",
-    image: "/assets/landingphoto/Rectangle 155.png",
+    image: "/assets/landingphoto/Rectangle155.png",
     link: "/posts/wednesday",
   },
   {
     id: 5,
     title: "Creating Significance",
-    image: "/assets/landingphoto/Rectangle 156.png",
+    image: "/assets/landingphoto/Rectangle156.png",
     link: "/posts/creating-significance",
   },
   {
     id: 6,
     title: "Social Media Design",
-    image: "/assets/landingphoto/Rectangle 158.png",
+    image: "/assets/landingphoto/Rectangle158.png",
     link: "/posts/social-media-design",
   },
 ];
@@ -53,7 +53,7 @@ const posts = [
 
 const project = {
   id: 1,
-  logo: "/assets/landingphoto/Ellipse 4.png",
+  logo: "/assets/landingphoto/Ellipse4.png",
   name: "GUSPTECH",
   stage: "Early Stage (MVP Developed, Seeking Beta Users)",
   role: "TECHNICAL CO-FOUNDER",
