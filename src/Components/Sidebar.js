@@ -37,7 +37,7 @@ export default function Sidebar() {
           <div className="logo border-2 border-gray-500 border-t-0 flex justify-center items-center p-1 pb-2.5 pt-3">
             <Link href="/" className="cursor-pointer">
               <Image
-                src="/assets/Ellipse 45.png"
+                src="/assets/Ellipse45.png"
                 alt="Company Logo"
                 width={50}
                 height={50}
@@ -50,28 +50,28 @@ export default function Sidebar() {
           <div className="mid-icons border-2 border-gray-500 border-t-0 flex flex-col items-center gap-6 pt-14 pb-12 px-2">
             {/* Example icons */}
             <Image
-              src="/assets/2 7.png"
+              src="/assets/27.png"
               alt="Icon 1"
               width={40}
               height={40}
               className="cursor-pointer"
             />
             <Image
-              src="/assets/3 4.png"
+              src="/assets/34.png"
               alt="Icon 2"
               width={40}
               height={40}
               className="cursor-pointer"
             />
             <Image
-              src="/assets/7 4.png"
+              src="/assets/74.png"
               alt="Icon 3"
               width={40}
               height={40}
               className="cursor-pointer"
             />
             <Image
-              src="/assets/4 4.png"
+              src="/assets/44.png"
               alt="Icon 4"
               width={40}
               height={40}
@@ -102,7 +102,7 @@ export default function Sidebar() {
             <Link href="/Settings" className="cursor-pointer">
               <Image
                 className="w-[2.6rem] cursor-pointer"
-                src="/assets/6 5.png"
+                src="/assets/65.png"
                 alt="Settings Icon"
                 width={40}
                 height={40}
