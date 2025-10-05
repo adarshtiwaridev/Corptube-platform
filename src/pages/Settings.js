@@ -5,7 +5,6 @@ import Image from 'next/image';
 import styles from './styles/Settings.module.css';
 import Sidebar from '../Components/Sidebar';
 import { Eye, EyeOff } from 'lucide-react';
-import {  useEffect } from "react";
 //  internal view and layout
 
 const UpdateProfileView = ({ user }) => {
@@ -19,7 +18,7 @@ const UpdateProfileView = ({ user }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [preview, setPreview] = useState(
-    user?.profilePhoto || "/assets/Ellipse 48.png"
+    user?.profilePhoto || "/assets/Ellipse48.png"
   );
 
   const fileInputRef = useRef(null);
@@ -118,7 +117,7 @@ const UpdateProfileView = ({ user }) => {
               className="w-[100px] h-[100px] rounded-full overflow-hidden ring-4 ring-blue-500 cursor-pointer"
             >
               <Image
-                src={typeof preview === "string" ? preview : "/assets/Ellipse 48.png"}
+                src={typeof preview === "string" ? preview : "/assets/Ellipse48.png"}
                 alt="profile"
                 width={100}
                 height={100}
@@ -344,9 +343,9 @@ const UpdatePasswordView = () => {
 
 // 1. Data structure for the menu items
 const settingsOptions = [
-  { id: 1, title: 'UPDATE PROFILE', key: 'updateProfile', iconSrc: '/assets/Polygon 28 (1).png', href: '/profile/update' },
-  { id: 2, title: 'UPDATE PASSWORD', key: 'updatePassword', iconSrc: '/assets/Polygon 29.png', href: '/password/update' },
-  { id: 3, title: 'ABOUT US', key: 'aboutUs', iconSrc: '/assets/Polygon 30.png', href: '/about' },
+  { id: 1, title: 'UPDATE PROFILE', key: 'updateProfile', iconSrc: '/assets/Polygon28(1).png', href: '/profile/update' },
+  { id: 2, title: 'UPDATE PASSWORD', key: 'updatePassword', iconSrc: '/assets/Polygon29.png', href: '/password/update' },
+  { id: 3, title: 'ABOUT US', key: 'aboutUs', iconSrc: '/assets/Polygon30.png', href: '/about' },
 ];
 
 // Reusable component for the settings button row (MODIFIED to accept click handler for the arrow)
@@ -366,7 +365,7 @@ const SettingButton = ({ title, iconSrc, onInternalArrowClick }) => (
       </div>
     </div>
     <div className="cursor-pointer">
-      <Image src="/assets/Ellipse 44.png" alt='arrow' height={90} width={90} />
+      <Image src="/assets/Ellipse44.png" alt='arrow' height={90} width={90} />
     </div>
   </div>
 );
