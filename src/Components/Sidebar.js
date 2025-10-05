@@ -31,6 +31,7 @@ export default function Sidebar() {
 
   return (
     <div className="main h-full w-full">
+      <section className="sidebar w-[4%] fixed top-0 left-0 h-screen bg-gray-900 ml-2">
       <section className="sidebar w-[4%] fixed top-0 left-0 h-screen bg-gray-900">
         <div className="sidebar-content h-full flex flex-col justify-between">
           {/* Logo Section */}
@@ -57,7 +58,7 @@ export default function Sidebar() {
               className="cursor-pointer"
             />
             <Image
-              src="/assets/3 4.png"
+              src="/assets/34.png"
               alt="Icon 2"
               width={40}
               height={40}
