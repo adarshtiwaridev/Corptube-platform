@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-
+import { toast } from "sonner";
 const OTPPage = () => {
   const [otp, setOtp] = useState("");
   const [pendingData, setPendingData] = useState(null);
@@ -52,6 +52,7 @@ const OTPPage = () => {
       if (result.success) {
         localStorage.removeItem("pendingSignup");
         router.push("/dashboard");
+        toast.success("Signup successful! Welcome aboard.");
       } else {
         setError(result.message || "Invalid OTP. Please try again.");
       }
