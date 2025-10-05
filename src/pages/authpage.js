@@ -301,10 +301,11 @@ console.log(loginData)
           <Image
           src="/assets/corptube_logo-bgRemoved.png"
           alt="logo"
-          width={70}
-          height={70}
-          className="  opacity-80 object-cover"
-        />BACK
+          width={90}
+          height={90}
+          className="pt-2.5 "
+        /><p>BACK</p>
+        </div>
     </>
   ) : (
     <>

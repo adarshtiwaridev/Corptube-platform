@@ -9,7 +9,7 @@ function SkillCard({ skill }) {
     <div className="h-[50vh] bg-gradient-to-r from-[#140808] to-[#837575]  ml-11  rounded-2xl shadow-md border-1 border-[#FFF2F2]  flex flex-col items-center p-4 relative">
       {/* Octagon Icon */}
  
-        <Image src="/assets/landingphoto/Polygon 17.png" alt="Octagon" width={230} height={230} />
+        <Image src="/assets/landingphoto/Polygon17.png" alt="Octagon" width={230} height={230} />
     
 
      <div className="flex flex-col bg-black rounded-2xl p-4 border border-white mt-4 w-full items-center">
@@ -43,12 +43,14 @@ function SkillCard({ skill }) {
 // Special "See More" card
 function SeeMoreCard() {
   return (
-    <div className="bg-gradient-to-r from-[#140808] to-[#837575] border-1 border-[#FFF2F2] ml-10 rounded-2xl shadow-md w-74 flex flex-col items-center justify-center relative">
+    
+    <Link href="/skills" className="bg-gradient-to-r from-[#140808] to-[#837575] border-1 border-[#FFF2F2] ml-10 cursor-pointer rounded-2xl shadow-md w-74 flex flex-col items-center justify-center relative">
       <div className="w-20 h-20 flex items-center justify-center bg-black rounded-full border border-neutral-700">
         <span className="text-4xl font-bold">›</span>
       </div>
       <p className="font-bold text-lg mt-2">SEE MORE</p>
-    </div>
+    </Link>
+
   );
 }
 

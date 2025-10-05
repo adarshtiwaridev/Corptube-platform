@@ -5,7 +5,6 @@ import Image from 'next/image';
 import styles from './styles/Settings.module.css';
 import Sidebar from '../Components/Sidebar';
 import { Eye, EyeOff } from 'lucide-react';
-import {  useEffect } from "react";
 //  internal view and layout
 
 const UpdateProfileView = ({ user }) => {
@@ -19,7 +18,7 @@ const UpdateProfileView = ({ user }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [preview, setPreview] = useState(
-    user?.profilePhoto || "/assets/Ellipse 48.png"
+    user?.profilePhoto || "/assets/Ellipse48.png"
   );
 
   const fileInputRef = useRef(null);
@@ -118,7 +117,7 @@ const UpdateProfileView = ({ user }) => {
               className="w-[100px] h-[100px] rounded-full overflow-hidden ring-4 ring-blue-500 cursor-pointer"
             >
               <Image
-                src={typeof preview === "string" ? preview : "/assets/Ellipse 48.png"}
+                src={typeof preview === "string" ? preview : "/assets/Ellipse48.png"}
                 alt="profile"
                 width={100}
                 height={100}
@@ -159,7 +158,7 @@ const UpdateProfileView = ({ user }) => {
 };
 
 const AboutUsView = () => (
-  <div className="flex-1 w-full flex items-center justify-center bg-black py-20 px-6">
+  <div className="flex-1 w-full flex items-center justify-center bg-black py-15 px-6">
     <div className="max-w-4xl border-4 border-blue-500 rounded-2xl p-10 text-center shadow-lg">
       <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-wide">
         About <span className="text-blue-400">CORPTUBE</span>
