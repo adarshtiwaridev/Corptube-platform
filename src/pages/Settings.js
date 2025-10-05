@@ -229,9 +229,9 @@ const UpdatePasswordView = () => {
   };
 
   return (
-    <div className="flex-1 w-full flex items-center justify-center">
+    <div className="flex-1 w-full flex items-center justify-center ">
       {/* ✅ Box with fixed height + blue border */}
-      <div className="w-full max-w-md h-[28rem] mt-10 p-6 bg-black/60 border-4 border-blue-500 rounded-xl shadow-lg">
+      <div className="w-full max-w-md h-[54vh] mt-5 p-6 bg-black/60 border-4 border-blue-500 rounded-xl shadow-lg ">
         <h2 className="text-3xl font-bold text-white mb-6 text-center">
           Update Password
         </h2>
@@ -343,38 +343,38 @@ const UpdatePasswordView = () => {
 
 // 1. Data structure for the menu items
 const settingsOptions = [
-  { id: 1, title: 'UPDATE PROFILE', key: 'updateProfile', iconSrc: '/assets/Polygon 28 (1).png', href: '/profile/update' },
-  { id: 2, title: 'UPDATE PASSWORD', key: 'updatePassword', iconSrc: '/assets/Polygon 29.png', href: '/password/update' },
-  { id: 3, title: 'ABOUT US', key: 'aboutUs', iconSrc: '/assets/Polygon 30.png', href: '/about' },
-  { id: 4, title: 'DELETE ACCOUNT', key: 'accountDelete', iconSrc: '/assets/Polygon 30.png', href: '/accountDelete' },
+  { id: 1, title: 'UPDATE PROFILE', key: 'updateProfile', iconSrc: '/assets/Polygon28(1).png', href: '/profile/update' },
+  { id: 2, title: 'UPDATE PASSWORD', key: 'updatePassword', iconSrc: '/assets/Polygon29.png', href: '/password/update' },
+  { id: 3, title: 'ABOUT US', key: 'aboutUs', iconSrc: '/assets/Polygon30.png', href: '/about' },
+  { id: 4, title: 'DELETE ACCOUNT', key: 'accountDelete', iconSrc: '/assets/Polygon30.png', href: '/accountDelete' },
 ];
 
 // Reusable component for the settings button row (MODIFIED to accept click handler for the arrow)
 const SettingButton = ({ title, iconSrc, onInternalArrowClick }) => (
   <div 
     onClick={onInternalArrowClick}
-    className={` font-bold flex items-center justify-between p-4 my-12 rounded-lg cursor-pointer transition-all duration-200 
+    className={` font-bold flex items-center justify-between p-4 pr-5 my-7 rounded-lg cursor-pointer transition-all duration-200 
                 bg-gray-800 text-white shadow-md border-2 border-white hover:bg-gray-600`}
     
   >
     <div className="flex items-center flex-grow">
       <div className="flex items-center">
         <div className="mr-4">
-          <Image src={iconSrc} alt={`${title} icon`} width={100} height={100} />
+          <Image src={iconSrc} alt={`${title} icon`} width={80} height={80} />
         </div>
         
-        <span className="text-4xl font-semibold tracking-wider text-white  pl-4">{title}</span>
+        <span className="text-4xl font-semibold tracking-wider text-white  pl-4 pt-2">{title}</span>
       </div>
     </div>
     <div className="cursor-pointer">
-      <Image src="/assets/Ellipse44.png" alt='arrow' height={90} width={90} />
+      <Image src="/assets/Ellipse44.png" alt='arrow' height={80} width={80} />
     </div>
   </div>
 );
 
 // Header + Menu container that can morph to tabs on subviews
 const HeaderAndMenu = ({ isSubview, currentView, onBack, onGo, children }) => (
-  <div className={` font-bold  w-[90vw] h-full bg-black rounded-xl p-4 sm:p-6 ${styles.mainContainerGlow}`}>
+  <div className={` font-bold  w-[90vw] h-[92vh] bg-black rounded-xl p-4 sm:p-6 ${styles.mainContainerGlow}`}>
 
       <div className="content-center flex justify-between items-center pb-4 mb-6 border-b-2 border-indigo-800">
 
