@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { loginSchema, signupSchema, forgotPasswordSchema } from "../lib/zodSchemas/userSchema";
 import Image from "next/image";
-
-
+import { toast } from "sonner"
 const AuthPage = () => {
   const [activeForm, setActiveForm] = useState("login");
   const [showPassword, setShowPassword] = useState(false);
@@ -45,6 +44,7 @@ console.log(loginData)
         // Store token and user data
         localStorage.setItem('token', result.token);
         localStorage.setItem('user', JSON.stringify(result.user));
+        toast.success('Login successful!');
         router.push('/dashboard');
       } else {
         setError(result.message || 'Login failed');
@@ -85,6 +85,7 @@ console.log(loginData)
 
       // Redirect to OTP page
       router.push('/otp');
+      toast.success('Registration successful! Please verify your email.');
     } else {
       setError(result.message || 'Registration failed');
     }
@@ -119,10 +120,10 @@ console.log(loginData)
       const result = await response.json();
 
       if (result.success) {
-        alert('Password reset link sent to your email!');
+       toast.success('Password reset link sent to your email.');
         setActiveForm("login");
       } else {
-        setError(result.message || 'Failed to send reset link');
+        toast.error(result.message || 'Failed to send reset link');
       }
     } catch (error) {
       if (error.errors) {
@@ -300,11 +301,10 @@ console.log(loginData)
           <Image
           src="/assets/corptube_logo-bgRemoved.png"
           alt="logo"
-          width={90}
-          height={90}
-          className="pt-2.5 "
-        /><p>BACK</p>
-        </div>
+          width={70}
+          height={70}
+          className="  opacity-80 object-cover"
+        />BACK
     </>
   ) : (
     <>
