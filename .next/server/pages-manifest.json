@@ -3,7 +3,7 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/news/international": "pages/news/international.js",
-  "/news/national": "pages/news/national.js",
-  "/news/stock": "pages/news/stock.js"
+  "/authpage": "pages/authpage.js",
+  "/uploads": "pages/uploads.js",
+  "/uploadsAll/uploadVideos": "pages/uploadsAll/uploadVideos.js"
 }

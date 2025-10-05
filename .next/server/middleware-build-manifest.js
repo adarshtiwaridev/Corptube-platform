@@ -25,20 +25,20 @@ globalThis.__BUILD_MANIFEST = {
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/news/international": [
+    "/authpage": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/news/international.js"
+      "static/chunks/pages/authpage.js"
     ],
-    "/news/national": [
+    "/uploads": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/news/national.js"
+      "static/chunks/pages/uploads.js"
     ],
-    "/news/stock": [
+    "/uploadsAll/uploadVideos": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/news/stock.js"
+      "static/chunks/pages/uploadsAll/uploadVideos.js"
     ]
   },
   "ampFirstPages": []
