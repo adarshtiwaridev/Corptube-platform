@@ -10,14 +10,11 @@ globalThis.__BUILD_MANIFEST = {
   "rootMainFiles": [],
   "rootMainFilesTree": {},
   "pages": {
-<<<<<<< HEAD
     "/": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/index.js"
     ],
-=======
->>>>>>> b83595f614dc7192ab86c6f3ec075845be5c1ad2
     "/_app": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
@@ -27,23 +24,6 @@ globalThis.__BUILD_MANIFEST = {
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
-    ],
-<<<<<<< HEAD
-    "/authpage": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/authpage.js"
-    ],
-    "/dashboard": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/dashboard.js"
-=======
-    "/resetpassword": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/resetpassword.js"
->>>>>>> b83595f614dc7192ab86c6f3ec075845be5c1ad2
     ]
   },
   "ampFirstPages": []

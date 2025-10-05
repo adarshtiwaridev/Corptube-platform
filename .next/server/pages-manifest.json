@@ -2,13 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-<<<<<<< HEAD
-  "/authpage": "pages/authpage.js",
-  "/": "pages/index.js",
-  "/dashboard": "pages/dashboard.js",
-  "/api/auth/login": "pages/api/auth/login.js"
-=======
-  "/resetpassword": "pages/resetpassword.js",
-  "/api/auth/resetpassword": "pages/api/auth/resetpassword.js"
->>>>>>> b83595f614dc7192ab86c6f3ec075845be5c1ad2
+  "/": "pages/index.js"
 }
