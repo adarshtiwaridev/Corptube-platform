@@ -32,7 +32,6 @@ export default function Sidebar() {
   return (
     <div className="main h-full w-full">
       <section className="sidebar w-[4%] fixed top-0 left-0 h-screen bg-gray-900 ml-2">
-      <section className="sidebar w-[4%] fixed top-0 left-0 h-screen bg-gray-900">
         <div className="sidebar-content h-full flex flex-col justify-between">
           {/* Logo Section */}
           <div className="logo border-2 border-gray-500 border-t-0 flex justify-center items-center p-1 pb-2.5 pt-3">
