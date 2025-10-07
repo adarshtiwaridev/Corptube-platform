@@ -40,10 +40,10 @@ console.log(loginData)
       });
       const result = await response.json();
 
-      if (result.success) {
-        // Store token and user data
-        localStorage.setItem('token', result.token);
-        localStorage.setItem('user', JSON.stringify(result.user));
+      if (result.success && result.data) {
+        // Store token and user data (ensure userId present)
+        localStorage.setItem('token', result.token || '');
+        localStorage.setItem('user', JSON.stringify(result.data));
         toast.success('Login successful!');
         router.push('/dashboard');
       } else {

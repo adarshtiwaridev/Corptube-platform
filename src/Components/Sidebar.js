@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 export default function Sidebar() {
   const [userImage, setUserImage] = useState(null);
 
+<<<<<<< HEAD
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -28,6 +29,20 @@ export default function Sidebar() {
 
     fetchUser();
   }, []);
+=======
+  // useEffect(() => {
+  //   try {
+  //     const raw = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+  //     console.log("raw of sidebar", raw);
+  //     if (raw) {
+  //       const user = JSON.parse(raw);
+  //       setUserImage(user?.profilePhoto || null);
+  //     }
+  //   } catch (err) {
+  //     console.warn('Failed to read user from localStorage:', err);
+  //   }
+  // }, []);
+>>>>>>> 447ac9f (upload post event video)
 
   return (
     <div className="main h-full w-full">
@@ -43,7 +58,63 @@ export default function Sidebar() {
               height={50}
               className="w-[3vw] min-w-[45px]"
             />
+<<<<<<< HEAD
           </Link>
+=======
+            <Image
+              src="/assets/34.png"
+              alt="Icon 2"
+              width={40}
+              height={40}
+              className="cursor-pointer"
+            />
+            <Image
+              src="/assets/74.png"
+              alt="Icon 3"
+              width={40}
+              height={40}
+              className="cursor-pointer"
+            />
+            <Image
+              src="/assets/44.png"
+              alt="Icon 4"
+              width={40}
+              height={40}
+              className="cursor-pointer"
+            />
+            <Link href="/uploads">
+              <Image
+                src="/assets/54.png"
+                alt="Icon 5"
+                width={41}
+                height={40}
+                className="cursor-pointer"
+              />
+            </Link>
+            
+            <Image
+            src="/assets/83.png"
+            alt="uploads-icon"
+            width={40}
+            height={40}
+            className="cursor-pointer"
+            />
+           
+          </div>
+
+          {/* Settings Icon Section */}
+          <div className="setting-icon border-2 border-gray-500 border-t-0 border-b-0 flex justify-center py-28">
+            <Link href="/Settings" className="cursor-pointer">
+              <Image
+                className="w-[2.6rem] cursor-pointer"
+                src="/assets/65.png"
+                alt="Settings Icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+          </div>
+>>>>>>> 447ac9f (upload post event video)
         </div>
 
         {/* Middle Icons */}
