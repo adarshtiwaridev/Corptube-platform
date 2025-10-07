@@ -155,7 +155,7 @@ console.log("userId of event upload", userId);
       let imageUrl;
       if (imageFile) {
         const formData = new FormData();
-        formData.append("file", imageFile);
+        formData.append("image", imageFile);
         formData.append("folder", "images");
 
         const uploadRes = await fetch("/api/media/upload", {
@@ -163,12 +163,13 @@ console.log("userId of event upload", userId);
           body: formData,
         });
         const uploadJson = await safeParseJson(uploadRes);
+        console.log("uploadjson",uploadJson)
 
-        if (!uploadJson.success) {
+        if (!uploadJson.url) {
           toast.error(uploadJson.message || "Image upload failed");
           return;
         }
-        imageUrl = uploadJson.data?.secure_url;
+        imageUrl = uploadJson?.url;
       }
 
       // --- Build payload ---

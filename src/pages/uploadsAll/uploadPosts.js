@@ -111,18 +111,18 @@ const UploadVideos = () => {
 
       // 🔹 Upload Image
       const formData = new FormData();
-      formData.append('file', imageFile);
+      formData.append('image', imageFile);
       formData.append('folder', 'images');
 
       const uploadRes = await fetch('/api/media/upload', { method: 'POST', body: formData });
       const uploadJson = await safeParseJson(uploadRes);
 
-      if (!uploadJson.success) {
+      if (!uploadJson.url) {
         toast.error(uploadJson.message || 'Upload failed');
         return;
       }
 
-      const imageUrl = uploadJson.data?.secure_url;
+      const imageUrl = uploadJson.url;
 
       // 🔹 Prepare Payload
       const payload = {

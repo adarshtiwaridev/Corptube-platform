@@ -74,16 +74,17 @@ const UploadVideos = () => {
   // Handle file upload to backend
   const uploadFile = async (file, folder) => {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('image', file);
     formData.append('folder', folder);
 
     const res = await fetch('/api/media/upload', { method: 'POST', body: formData });
     const json = await safeParseJson(res);
-    if (!json.success) {
+    console.log("json",json)
+    if (!json.url) {
       toast.error(json.message || 'Upload failed');
       return null;
     }
-    return json.data?.secure_url;
+    return json.url;
   };
 
   // Handle Publish button click
