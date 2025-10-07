@@ -1,19 +1,119 @@
-import React, { useState } from 'react';
-import Sidebar from '../../Components/Sidebar';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import React, { useState, useEffect } from "react";
+import { toast } from "sonner";
+import Sidebar from "../../Components/Sidebar";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+// --- Helper to safely parse JSON responses ---
+const safeParseJson = async (response) => {
+  try {
+    const contentType = response.headers.get('content-type') || '';
+    const isJson = contentType.includes('application/json');
+
+    if (isJson) {
+      try {
+        const data = await response.json();
+        if (!response.ok && (data == null || typeof data !== 'object')) {
+          return { success: false, message: `${response.status} ${response.statusText}` };
+        }
+        return data;
+      } catch (e) {
+        // fall through to text parsing
+      }
+    }
+
+    const text = await response.text();
+    const trimmed = (text || '').trim();
+
+    if (!trimmed || trimmed === 'undefined' || trimmed === 'null') {
+      if (!response.ok) {
+        return { success: false, message: `${response.status} ${response.statusText}` };
+      }
+      return { success: false, message: 'Invalid server response' };
+    }
+
+    try {
+      return JSON.parse(trimmed);
+    } catch {
+      if (!response.ok) {
+        return { success: false, message: trimmed };
+      }
+      return { success: false, message: trimmed };
+    }
+  } catch (e) {
+    return { success: false, message: e?.message || 'Failed to read server response' };
+  }
+};
+
+// --- Helper to resolve current user robustly ---
+const resolveCurrentUser = async () => {
+  try {
+    // 1) localStorage
+    const raw = typeof window !== "undefined" ? localStorage.getItem("user") : null;
+    if (raw) {
+      return JSON.parse(raw);
+    }
+
+    // 2) try cookie-authenticated call
+    try {
+      const res = await fetch("/api/auth/me", { credentials: "include" });
+      const data = await safeParseJson(res);
+      if (data?.success && data?.data) {
+        localStorage.setItem("user", JSON.stringify(data.data));
+        return data.data;
+      }
+    } catch {}
+
+    // 3) try bearer token if stored
+    try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      if (token) {
+        const res = await fetch("/api/auth/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await safeParseJson(res);
+        if (data?.success && data?.data) {
+          localStorage.setItem("user", JSON.stringify(data.data));
+          return data.data;
+        }
+      }
+    } catch {}
+
+    return null;
+  } catch {
+    return null;
+  }
+};
 
 const UploadVideos = () => {
   const router = useRouter();
 
-  // Category state
+  // ------------------ State ------------------
   const [categoryOpen, setCategoryOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("select category");
+  const [selectedCategory, setSelectedCategory] = useState("Select Category");
   const [descOpen, setDescOpen] = useState(false);
   const [descClosing, setDescClosing] = useState(false);
-  const categories =  ["ENTREPRENEUR", "CREATOR", "BUISINESSPERSON"];
+  const [price, setPrice] = useState("");
+  const [address, setAddress] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [description, setDescription] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const categories = ["ENTREPRENEUR", "CREATOR", "BUSINESSPERSON"];
 
+  // ------------------ Check user on mount ------------------
+  useEffect(() => {
+    (async () => {
+      try {
+        const user = await resolveCurrentUser();
+        if (!user) {
+          // optional: prompt login
+        }
+      } catch {}
+    })();
+  }, []);
+
+  // ------------------ Handlers ------------------
   const handleSelectCategory = (option) => {
     setSelectedCategory(option);
     setCategoryOpen(false);
@@ -24,110 +124,215 @@ const UploadVideos = () => {
     setTimeout(() => {
       setDescClosing(false);
       setDescOpen(false);
-    }, 220); // same duration as animation
+    }, 220);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setIsSubmitting(true);
+      console.log("handleSubmit of event upload 1");
+
+      // Validate user
+      const currentUser = await resolveCurrentUser();
+      console.log("handleSubmit of event upload 2");
+      console.log("resolved user of event upload", currentUser);
+
+      const parsedUser = currentUser;
+      console.log("handleSubmit of event upload 3");
+
+      const userId = parsedUser?.userId;
+      console.log("handleSubmit of event upload 4");
+
+      if (!userId) {
+        toast.error("User ID missing. Please login again.");
+        try { router.push("/authpage"); } catch {}
+        return;
+      }
+console.log("userId of event upload", userId);
+ 
+      // --- Upload image if exists ---
+      let imageUrl;
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append("file", imageFile);
+        formData.append("folder", "images");
+
+        const uploadRes = await fetch("/api/media/upload", {
+          method: "POST",
+          body: formData,
+        });
+        const uploadJson = await safeParseJson(uploadRes);
+
+        if (!uploadJson.success) {
+          toast.error(uploadJson.message || "Image upload failed");
+          return;
+        }
+        imageUrl = uploadJson.data?.secure_url;
+      }
+
+      // --- Build payload ---
+      const payload = {
+        userId,
+        description,
+        imageUrl,
+        price: price ? Number(price) : undefined,
+        address: address || undefined,
+        userCategory:
+          selectedCategory !== "Select Category" ? selectedCategory : undefined,
+      };
+
+      const resp = await fetch("/api/uploads/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const out = await safeParseJson(resp);
+      if (!out.success) {
+        toast.error(out.message || "Publish failed");
+        return;
+      }
+
+      toast.success("Event published successfully");
+      router.push("/uploadsAll/uploadEvents");
+    } catch (e) {
+      toast.error(e?.message || "Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // ------------------ JSX ------------------
   return (
     <div>
       <Sidebar />
 
-      {/* Main Content */}
-      <div className='w-full h-screen bg-black text-white'>
+      <div className="w-full min-h-screen bg-black text-white">
         {/* Back Button */}
-        <div className="w-[93%] flex flex-row justify-end">
+        <div className="w-[93%] flex justify-end">
           <button onClick={() => router.back()}>
             <Image
               src="/assets/back-btn.png"
               alt="Back-btn"
-              width={24}
-              height={24}
+              width={64}
+              height={64}
               className="border-2 mt-8 w-16 h-16 rounded-full hover:bg-indigo-600 transition-colors"
             />
           </button>
         </div>
 
-        <div className='w-[78%] ml-42 flex justify-center'>
-          <div className='border-5 border-[#575FFE] rounded-3xl bg-white  flex flex-col items-center justify-center gap-6 py-40 px-20 ring-2 ring-[#8d92eb]'>
-            <div className='circle w-65 h-65 rounded-full border-[#575FFE] border-4 flex items-center justify-center'>
+        <form
+          onSubmit={handleSubmit}
+          className="w-[78%] mx-auto flex justify-center gap-4"
+        >
+          {/* LEFT: Upload Cover */}
+          <div className="border-4 border-[#575FFE] rounded-3xl bg-white flex flex-col items-center justify-center gap-6 py-40 px-20 ring-2 ring-[#8d92eb]">
+            <div className="circle w-64 h-64 rounded-full border-[#575FFE] border-4 flex items-center justify-center">
               <Link href="#">
                 <Image
-                  src="/assets/Untitled design (6) 1.png"
+                  src="/assets/Untitleddesign(6)1.png"
                   alt="UPLOAD VIDEO"
                   width={170}
                   height={170}
                   className="object-fill"
+                  priority
                 />
               </Link>
             </div>
+
             <div>
               <input
                 type="file"
                 id="fileUpload"
+                accept="image/*"
                 className="hidden"
-                onChange={(e) => console.log(e.target.files)} 
+                onChange={(e) => setImageFile(e.target.files?.[0] || null)}
               />
-
               <label
                 htmlFor="fileUpload"
-                className="p-2.5 px-9 bg-[#575FFE] text-3xl font-bold text-white rounded-full cursor-pointer"
+                className="p-2.5 px-9 bg-[#575FFE] text-3xl font-bold text-white rounded-full cursor-pointer hover:bg-[#3d43ca]"
               >
                 UPLOAD COVER
               </label>
             </div>
           </div>
 
-          <div className=' relative overflow-hidden bg-[#575FFE] rounded-r-3xl text-black my-5 py-14 px-8 flex flex-col justify-between gap-5 '>
-
-            {/* DESCRIPTION header (click only this to open editor) */}
+          {/* RIGHT: Details */}
+          <div className="relative overflow-hidden bg-[#575FFE] rounded-r-3xl text-black my-5 py-14 px-8 flex flex-col justify-between gap-5 w-full">
+            {/* DESCRIPTION */}
             <div
               className="rounded-2xl bg-white text-5xl text-[#575FFE] font-extrabold flex flex-col items-center px-18 py-16 cursor-pointer"
               onClick={() => setDescOpen(true)}
             >
-              <p className="uppercase cursor-pointer">
-                description
-              </p>
+              <p className="uppercase">Description</p>
             </div>
 
-            {/* CATEGORY with Drop-Up */}
-            <div className='rounded-2xl bg-white  text-[#575FFE]  px-18 py-5 relative flex flex-col justify-end gap-1.5'>
-              <div className='bg-[#575FFE] rounded-xl'>
-                <p className='uppercase text-center text-white  rounded-xl text-2xl font-bold'>enter pricing</p>
+            {/* PRICE + ADDRESS + CATEGORY */}
+            <div className="rounded-2xl bg-white text-[#575FFE] px-10 py-5 relative flex flex-col justify-end gap-3">
+              {/* Price */}
+              <div className="bg-[#575FFE] rounded-xl">
+                <p className="uppercase text-center text-white text-2xl font-bold">
+                  Enter Pricing
+                </p>
                 <div className="relative mt-2">
-                  <span className="absolute left-6 top-4 -translate-y-1/2 text-[#575FFE] font-bold">Rs</span>
+                  <span className="absolute left-6 top-4 text-[#575FFE] font-bold">
+                    ₹
+                  </span>
                   <input
                     type="number"
-                    min='0'
-                    className="w-[90%] bg-white pl-12 pr-4 py-0.5 ml-4 mb-2.5 rounded-xl  border-[#575FFE] focus:outline-none focus:ring-2 focus:ring-[#575FFE] text-lg"
-                    placeholder="— — — —"
+                    min="0"
+                    name="price"
+                    className="w-[90%] bg-white pl-10 pr-4 py-1 ml-4 mb-2 rounded-xl border-[#575FFE] focus:outline-none focus:ring-2 focus:ring-[#575FFE] text-lg"
+                    placeholder="Amount"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
                   />
                 </div>
-
               </div>
 
-              <div
-                className='w-75 rounded-2xl bg-[#575FFE] text-white font-bold text-xl px-4 py-0.5 mt-3.5 flex items-center justify-between cursor-pointer'
-                onClick={() => setCategoryOpen(!categoryOpen)}
-              >
-                <span className='uppercase'>{selectedCategory}</span>
-                <div className='mr-[-15px] border-2 border-[#575FFE] rounded-full bg-white overflow-visible '>
-                  <Image
-                  src="/assets/Polygon 36.png"
-                  alt="arrow"
-                  width={24}
-                  height={24}
-                  className={` w-9 h-7 p-2  transition-transform ${categoryOpen ? 'rotate-180' : ''}`}
-                />
+              {/* Address */}
+              <div className="bg-[#575FFE] rounded-xl mt-3">
+                <p className="uppercase text-center text-white text-2xl font-bold">
+                  Enter Address
+                </p>
+                <div className="relative mt-2">
+                  <input
+                    type="text"
+                    name="address"
+                    className="w-[90%] bg-white px-4 py-2 ml-4 mb-2.5 rounded-xl border-[#575FFE] focus:outline-none focus:ring-2 focus:ring-[#575FFE] text-lg"
+                    placeholder="Address or location"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
                 </div>
               </div>
-               
 
-              {/* Drop-Up Options */}
+              {/* Category */}
+              <div
+                className="w-75 rounded-2xl bg-[#575FFE] text-white font-bold text-xl px-4 py-2 mt-3.5 flex items-center justify-between cursor-pointer"
+                onClick={() => setCategoryOpen(!categoryOpen)}
+              >
+                <span className="uppercase">{selectedCategory}</span>
+                <div className="mr-[-15px] border-2 border-[#575FFE] rounded-full bg-white">
+                  <Image
+                    src="/assets/Polygon 36.png"
+                    alt="arrow"
+                    width={24}
+                    height={24}
+                    className={`w-9 h-7 p-2 transition-transform ${
+                      categoryOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </div>
+              </div>
+
               {categoryOpen && (
-                <div className='absolute  w-[68%] bg-[#ffffff] rounded-2xl  z-10  '>
+                <div className="absolute w-[68%] bg-[#ffffff] rounded-2xl z-10">
                   {categories.map((option) => (
                     <div
                       key={option}
-                      className='text-white text-xl font-bold px-6 py-1 rounded-lg cursor-pointer bg-[#575FFE]  m-2 hover:bg-[#3e46cd]  '
+                      className="text-white text-xl font-bold px-6 py-1 rounded-lg cursor-pointer bg-[#575FFE] m-2 hover:bg-[#3e46cd]"
                       onClick={() => handleSelectCategory(option)}
                     >
                       {option}
@@ -137,79 +342,80 @@ const UploadVideos = () => {
               )}
             </div>
 
-            <div className='flex justify-center items-center  '>
-              <p className= 'uppercase rounded-4xl bg-white text-5xl font-extrabold py-2 px-8 text-[#575FFE]'>publish</p>
+            {/* Publish Button */}
+            <div className="flex justify-center items-center">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="uppercase rounded-4xl bg-white text-5xl font-extrabold py-2 px-8 text-[#575FFE] disabled:opacity-60 hover:bg-[#f0f1ff]"
+              >
+                {isSubmitting ? "Publishing..." : "Publish"}
+              </button>
             </div>
 
-            {/* DESCRIPTION overlay: fills the right panel (parent is relative + overflow-hidden) */}
+            {/* DESCRIPTION Overlay */}
             {descOpen && (
               <div className="absolute inset-0 z-40 flex items-center justify-center">
-                {/* Optional subtle backdrop (non-clickable) */}
                 <div className="absolute inset-0 bg-black/20"></div>
 
-                {/* White full-size panel inside the purple container */}
                 <div
-                  className={`relative w-full h-full rounded-r-2xl p-6 bg-white shadow-lg transform transition-all
-                  ${descClosing ? 'animate-descClose' : 'animate-descOpen'}`}
+                  className={`relative w-full h-full rounded-r-2xl p-6 bg-white shadow-lg transform transition-all ${
+                    descClosing ? "animate-descClose" : "animate-descOpen"
+                  }`}
                 >
-                  {/* Close button */}
                   <button
                     aria-label="Close description"
                     onClick={handleCloseDesc}
-                    className="absolute top-4 right-4 p-2 rounded-full border-2 border-[#575FFE] bg-white text-[#575FFE] hover:bg-[#f3f4ff] cursor-pointer"
-                    
+                    type="button"
+                    className="absolute top-4 right-4 p-2 rounded-full border-2 border-[#575FFE] bg-white text-[#575FFE] hover:bg-[#f3f4ff]"
                   >
                     ✕
                   </button>
 
-                  {/* Textarea fills the panel — clicking/typing here will NOT close the editor */}
                   <textarea
-                    placeholder="Description...."
-                    className="w-full h-full p-6 text-xl border-2 border-[#8f8fed] rounded-2xl resize-none focus:outline-none "
-                    
+                    placeholder="Write description..."
+                    className="w-full h-full p-6 text-xl border-2 border-[#8f8fed] rounded-2xl resize-none focus:outline-none"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
               </div>
             )}
-
-
           </div>
-        </div>
+        </form>
       </div>
-        {/* local animation keyframes */}
-        <style jsx>{`
-          @keyframes descOpen {
-            from {
-              transform: scale(0.98);
-              opacity: 0;
-            }
-            to {
-              transform: scale(1);
-              opacity: 1;
-            }
-          }
 
-          @keyframes descClose {
-            from {
-              transform: scale(1);
-              opacity: 1;
-            }
-            to {
-              transform: scale(0.98);
-              opacity: 0;
-            }
+      {/* Local animation keyframes */}
+      <style jsx>{`
+        @keyframes descOpen {
+          from {
+            transform: scale(0.98);
+            opacity: 0;
           }
-
-          .animate-descOpen {
-            animation: descOpen 220ms ease-out forwards;
+          to {
+            transform: scale(1);
+            opacity: 1;
           }
-
-          .animate-descClose {
-            animation: descClose 220ms ease-in forwards;
+        }
+        @keyframes descClose {
+          from {
+            transform: scale(1);
+            opacity: 1;
           }
-        `}</style>
+          to {
+            transform: scale(0.98);
+            opacity: 0;
+          }
+        }
+        .animate-descOpen {
+          animation: descOpen 220ms ease-out forwards;
+        }
+        .animate-descClose {
+          animation: descClose 220ms ease-in forwards;
+        }
+      `}</style>
     </div>
-  )
-}
+  );
+};
 
 export default UploadVideos;

@@ -6,28 +6,18 @@ import { useEffect, useState } from "react";
 export default function Sidebar() {
   const [userImage, setUserImage] = useState(null);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await fetch("/api/auth/me", {
-          method: "GET",
-          credentials: "include", // ✅ ensures cookies are sent
-        });
-
-        if (res.ok) {
-          const user = await res.json();
-          console.log("User data:", user);
-          setUserImage(user?.profilePhoto || null);
-        } else {
-          console.warn("Failed to fetch user data");
-        }
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
-
-    fetchUser();
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     const raw = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+  //     console.log("raw of sidebar", raw);
+  //     if (raw) {
+  //       const user = JSON.parse(raw);
+  //       setUserImage(user?.profilePhoto || null);
+  //     }
+  //   } catch (err) {
+  //     console.warn('Failed to read user from localStorage:', err);
+  //   }
+  // }, []);
 
   return (
     <div className="main h-full w-full">
@@ -79,7 +69,7 @@ export default function Sidebar() {
             />
             <Link href="/uploads">
               <Image
-                src="/assets/5 4.png"
+                src="/assets/54.png"
                 alt="Icon 5"
                 width={41}
                 height={40}
@@ -88,7 +78,7 @@ export default function Sidebar() {
             </Link>
             
             <Image
-            src="/assets/8 3.png"
+            src="/assets/83.png"
             alt="uploads-icon"
             width={40}
             height={40}

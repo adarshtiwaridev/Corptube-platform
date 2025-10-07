@@ -78,7 +78,7 @@ const Dashboard = () => {
               {/* LEFT: Profile Image */}
               <div className="w-55 h-55 relative ml-3">
                 <Image
-                  src="/assets/Polygon 21.png"
+                  src="/assets/Polygon21.png"
                   alt="User Profile"
                   width={220}
                   height={220}
