@@ -79,7 +79,7 @@ export default function Sidebar() {
             />
             <Link href="/uploads">
               <Image
-                src="/assets/5 4.png"
+                src="/assets/54.png"
                 alt="Icon 5"
                 width={41}
                 height={40}
@@ -88,7 +88,7 @@ export default function Sidebar() {
             </Link>
             
             <Image
-            src="/assets/8 3.png"
+            src="/assets/83.png"
             alt="uploads-icon"
             width={40}
             height={40}

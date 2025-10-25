@@ -166,7 +166,7 @@ console.log(loginData)
   className={`absolute top-0 left-0 w-full md:w-2/5 h-full flex flex-col justify-center px-6 sm:px-10 lg:px-[70px]
   ${activeForm !== "login" ? "hidden" : ""}`}
 >
-  <h2 className="text-white font-bold text-4xl sm:text-4xl text-center">Login</h2>
+  <h2 className="text-white font-bold text-4xl sm:text-6xl text-center">Login</h2>
 
 <form onSubmit={handleLoginSubmit} className="mt-8 space-y-6">
   {/* Error Message */}
@@ -190,7 +190,7 @@ console.log(loginData)
           setLoginData({ ...loginData, userId: e.target.value })
         }
         placeholder="Enter your User ID"
-        className="flex-1 bg-black outline-none text-white text-base"
+        className="flex-1 bg-black font-sans outline-none text-white placeholder-gray-400 text-base"
       />
       <Image
         src="/assets/usernam_icon.png"
@@ -215,7 +215,7 @@ console.log(loginData)
         onChange={(e) =>
           setLoginData({ ...loginData, password: e.target.value })
         }
-        placeholder="Enter your password"
+        placeholder="Enter your Password"
         className="flex-1 bg-black font-sans outline-none text-white placeholder-gray-400 text-base"
       />
       <button
@@ -297,15 +297,19 @@ console.log(loginData)
   {activeForm === "login" ? (
     <>
       WELCOME
-        <div className="flex flex-row justify-end items-center">
+      <div className="flex flex-row justify-end items-center ">
+        <p className="flex items-center text-[5vw] font-bold">
+          <span className="translate-x-4">BA</span>
           <Image
-          src="/assets/corptube_logo-bgRemoved.png"
-          alt="logo"
-          width={90}
-          height={90}
-          className="pt-2.5 "
-        /><p>BACK</p>
-        </div>
+            src="/assets/corptube_logo-bgRemoved.png"
+            alt="logo"
+            width={90}
+            height={90}
+            className="align-middle inline-block m-0 p-0 translate-x-2.5  "
+          />
+          K
+        </p>
+      </div>
     </>
   ) : (
     <>
@@ -342,7 +346,7 @@ console.log(loginData)
 
 
 
-{/* Register Form */}
+{/* Register/sign up Form */}
 <div
   className={`absolute  top-0 left-0 w-full md:w-2/5 h-full flex flex-col justify-center px-6 md:px-12 lg:px-[60px] transition-all duration-500 ${
     activeForm !== "register" ? "hidden" : "flex"
@@ -362,10 +366,10 @@ console.log(loginData)
 
   {/* Full Name */}
   <div className="relative">
-    <label className="block text-white text-lg font-medium mb-1">
+    <label className="block text-white text-lg font-medium ">
       Full Name
     </label>
-    <div className="flex items-center border-b-2 border-white focus-within:border-[#8e4eed]">
+    <div className="flex items-center border-b-2 border-white focus-within:border-[#8e4eed] pl-3 ">
       <input
         type="text"
         required
@@ -373,7 +377,7 @@ console.log(loginData)
         onChange={(e) =>
           setRegisterData({ ...registerData, fullName: e.target.value })
         }
-        className="flex-1 bg-transparent outline-none text-white font-medium text-lg py-2"
+        className="flex-1 bg-transparent outline-none text-[#ffffff] font-medium text-lg py-1"
       />
       <Image
         src="/assets/usernam_icon.png"
@@ -387,10 +391,10 @@ console.log(loginData)
 
   {/* Email */}
   <div className="relative">
-    <label className="block text-white text-lg font-medium mb-1">
+    <label className="block text-white text-lg font-medium">
       Email Address
     </label>
-    <div className="flex items-center border-b-2 border-white focus-within:border-[#8e4eed]">
+    <div className="flex items-center border-b-2 border-white focus-within:border-[#8e4eed] pl-3 ">
       <input
         type="email"
         required
@@ -398,7 +402,7 @@ console.log(loginData)
         onChange={(e) =>
           setRegisterData({ ...registerData, email: e.target.value })
         }
-        className="flex-1 bg-transparent outline-none text-white font-medium text-lg py-2"
+        className="flex-1 bg-transparent outline-none text-white font-medium text-lg py-1"
       />
       <Image
         src="/assets/at-line_icon.png"
@@ -412,10 +416,10 @@ console.log(loginData)
 
   {/* UserId */}
   <div className="relative">
-    <label className="block text-white text-lg font-medium mb-1">
-      UserId
+    <label className="block text-white text-lg font-medium ">
+      User Id
     </label>
-    <div className="flex items-center border-b-2 border-white focus-within:border-[#8e4eed]">
+    <div className="flex items-center border-b-2 border-white focus-within:border-[#8e4eed] pl-3 ">
       <input
         type="text"
         required
@@ -423,7 +427,7 @@ console.log(loginData)
         onChange={(e) =>
           setRegisterData({ ...registerData, userId: e.target.value })
         }
-        className="flex-1 bg-transparent outline-none text-white font-medium text-lg py-2"
+        className="flex-1 bg-transparent outline-none text-white font-medium text-lg py-1"
       />
       <Image
         src="/assets/usernam_icon.png"
@@ -443,7 +447,7 @@ console.log(loginData)
       onChange={(e) =>
         setRegisterData({ ...registerData, accountType: e.target.value })
       }
-      className="w-full border-b-2 border-white bg-transparent focus:border-[#8e4eed] outline-none text-white font-medium text-lg py-3"
+      className="w-full border-b-2 border-white bg-transparent focus:border-[#8e4eed] outline-none text-white font-medium text-lg py-5"
     >
       <option className="text-black" value="">
         Select Category
@@ -464,11 +468,11 @@ console.log(loginData)
   </div>
 
   {/* Password */}
-  <div className="relative">
-    <label className="block text-white text-lg font-medium mb-1 pt-1">
+  <div className="relative ">
+    <label className="block text-white text-lg font-medium  pt-2 ">
       Password
     </label>
-    <div className="flex items-center border-b-2 border-white focus-within:border-[#8e4eed]">
+    <div className="flex items-center border-b-2 border-white focus-within:border-[#8e4eed] pl-3 ">
       <input
         type={showPassword ? "text" : "password"}
         required
@@ -476,12 +480,12 @@ console.log(loginData)
         onChange={(e) =>
           setRegisterData({ ...registerData, password: e.target.value })
         }
-        className="flex-1 bg-transparent outline-none text-white font-medium text-lg py-2"
+        className="flex-1 bg-transparent outline-none text-white font-medium text-lg py-0.5"
       />
       <button
         type="button"
         onClick={() => setShowPassword(!showPassword)}
-        className="ml-2 text-white hover:text-[#AA7EF5]"
+        className="ml-2 text-white hover:text-[#AA7EF5] flex items-center justify-center w-6 h-6"
       >
         {showPassword ? (
           <svg
@@ -567,7 +571,7 @@ console.log(loginData)
     Forgot Password
   </h2>
   <p className="text-gray-300 text-center mt-2 text-sm sm:text-base">
-    Enter your email to receive an Link and reset your password.
+    Enter your email to receive a link and reset your password-
   </p>
 
    <form onSubmit={handleForgetSubmit} className="mt-8 space-y-6">
@@ -603,7 +607,11 @@ console.log(loginData)
        <button
          type="submit"
          disabled={isLoading}
-         className="relative w-full h-[45px] rounded-full border-2 border-[#401683] font-semibold overflow-hidden text-white disabled:opacity-50 disabled:cursor-not-allowed"
+         className="relative w-full h-[45px] rounded-full border-2 border-[#401683] font-semibold overflow-hidden text-white disabled:opacity-50 disabled:cursor-not-allowed
+         bg-gradient-to-t 
+        from-[#7127E9] 
+        via-[#6B37BF] via-[49%] 
+        to-[#401683] "
        >
          <span className="absolute -top-full left-0 w-full h-[300%] bg-gradient-to-b from-[#7127E9] via-[#6B37BF] to-[#401683]
                          z-[-1] transition-all duration-500 hover:top-0">
