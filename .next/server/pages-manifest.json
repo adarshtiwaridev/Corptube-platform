@@ -2,6 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/dashboard": "pages/dashboard.js",
+  "/news/international": "pages/news/international.js",
   "/": "pages/index.js",
-  "/news/national": "pages/news/national.js"
+  "/posts/[name]": "pages/posts/[name].js",
+  "/Settings": "pages/Settings.js"
 }
