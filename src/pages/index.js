@@ -240,7 +240,7 @@ const HomePage = () => {
                 alt={post.title}
                 width={400}
                 height={500}
-                className="w-full h-144 object-cover"
+                className="w-full h-144 object-center"
               />
             </Link>
           ))}
