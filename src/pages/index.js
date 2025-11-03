@@ -79,92 +79,100 @@ const HomePage = () => {
     <div className=" bg-gray-900">
  
     <Sidebar />
-      <main className="min-h-screen w-[96%] ml-[4%] bg-black text-white p-6">
+      <main className="min-h-screen  w-[96%] ml-[4%] bg-black text-white p-6">
       {/* BUSINESS NEWS */}
       <section>
-        <div className="flex justify-between">
-        <h2 className="text-5xl text-heading mb-4">BUSINESS NEWS</h2>
-        <Link href="/authpage" className="text-white text-xl bg-gradient-to-b from-[#7127E9] via-[#6B37BF] to-[#401683] rounded-r-full rounded-l-full px-8 mb-5 cursor-pointer ">
-         <p className="mt-2">Start Growing</p>
-        </Link>
-        </div>
+     <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 mb-6 px-4 sm:px-8">
+  <h2 className="text-3xl sm:text-4xl md:text-5xl text-heading font-semibold text-center sm:text-left">
+    BUSINESS NEWS
+  </h2>
+
+  <Link
+    href="/authpage"
+    className="text-white text-base sm:text-lg md:text-xl bg-gradient-to-b from-[#7127E9] via-[#6B37BF] to-[#401683]
+              rounded-full px-6 sm:px-8 py-2 sm:py-3 mt-2 sm:mt-0 transition-transform duration-300 hover:scale-105"
+  >
+    Start Growing
+  </Link>
+</div>
 
         
-        <div className="space-y-3 ml-11 mr-11">
-          <button
-            onClick={() =>  router.push("/news/international")}
-            className="w-full cursor-pointer text-3xl bg-[#1E1E1E] flex justify-between items-center border border-blue-400 border-b-[#220FCD] border-b-2 px-4 py-2 rounded-md"
-          >
-            INTERNATIONAL NEWS
-            <div className="text-black bg-white square-aspect-ratio w-10 h-10 rounded-full p-2"><p className="text-xl">{dropdowns.international ? "▲" : "▼"}</p></div>
-          </button>
+     <div className="flex flex-col ml-10 space-y-8 gap-4 sm:gap-2 sm:space-y-3 w-full">
+  <button
+    onClick={() => router.push("/news/international")}
+    className="cursor-pointer flex justify-between items-center font-semibold
+               bg-[#1E1E1E] border border-blue-400 border-b-[#220FCD] border-b-2 
+               px-4 py-2 rounded-md text-2xl sm:text-3xl
+               w-[386px] sm:w-[600px] md:w-[800px] lg:w-[1200px] xl:w-[1291px]
+               h-[60px] sm:h-[64px] md:h-[67px]"
+  >
+    INTERNATIONAL NEWS
+    <div className="text-black bg-white w-10 h-10 rounded-full flex justify-center items-center">
+      <p className="text-xl">{dropdowns.international ? "▲" : "▼"}</p>
+    </div>
+  </button>
 
-          <button
-            onClick={() => router.push("/news/national")}
-            className="w-full cursor-pointer text-3xl bg-[#1E1E1E] flex justify-between items-center border border-blue-400 border-b-[#220FCD] border-b-2 px-4 py-2 rounded-md"
-          >
-            NATIONAL NEWS
-            <div className="text-black cursor-pointer bg-white square-aspect-ratio w-10 h-10 rounded-full p-2"><p className="text-xl">{dropdowns.national ? "▲" : "▼"}</p></div>
-          </button>
+  <button
+    onClick={() => router.push("/news/national")}
+    className="cursor-pointer flex justify-between items-center font-semibold
+               bg-[#1E1E1E] border border-blue-400 border-b-[#220FCD] border-b-2 
+               px-4 py-2 rounded-md text-2xl sm:text-3xl
+               w-[386px] sm:w-[600px] md:w-[800px] lg:w-[1000px] xl:w-[1291px]
+               h-[60px] sm:h-[64px] md:h-[67px]"
+  >
+    NATIONAL NEWS
+    <div className="text-black bg-white w-10 h-10 rounded-full flex justify-center items-center">
+      <p className="text-xl">{dropdowns.national ? "▲" : "▼"}</p>
+    </div>
+  </button>
 
-          <button
-            onClick={() =>  router.push("/news/stock")}
-            className="w-full cursor-pointer text-3xl bg-[#1E1E1E] flex justify-between items-center border border-blue-400 border-b-[#220FCD] border-b-2 px-4 py-2 rounded-md"
-          >
-            STOCK NEWS
-            <div className="text-black cursor-pointer bg-white square-aspect-ratio w-10 h-10 rounded-full p-2"><p className="text-xl">{dropdowns.stock ? "▲" : "▼"}</p></div>
-          </button> 
-        </div>
+  <button
+    onClick={() => router.push("/news/stock")}
+    className="cursor-pointer flex justify-between items-center font-semibold
+               bg-[#1E1E1E] border border-blue-400 border-b-[#220FCD] border-b-2 
+               px-4 py-2 rounded-md text-2xl sm:text-3xl
+               w-[386px] sm:w-[600px] md:w-[800px] lg:w-[1000px] xl:w-[1291px]
+               h-[60px] sm:h-[64px] md:h-[67px]"
+  >
+    STOCK NEWS
+    <div className="text-black bg-white w-10 h-10 rounded-full flex justify-center items-center">
+      <p className="text-xl">{dropdowns.stock ? "▲" : "▼"}</p>
+    </div>
+  </button>
+</div>
+
       </section>
 
       {/* POSTS TO EXPLORE */}
-      <section className="mt-10">
-        <h2 className="text-5xl text-heading mb-6">POSTS TO EXPLORE</h2>
+  <section className="mt-10 px-4 sm:px-6 md:px-10">
+  <h2 className="text-3xl sm:text-4xl md:text-5xl text-heading mb-6 text-center sm:text-left">
+    POSTS TO EXPLORE
+  </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ml-11 mr-11 gap-6">
-          {posts.map((post) => (
-            <Link
-              href={post.link}
-              key={post.id}
-              className="rounded-xl overflow-hidden bg-gray-900 hover:scale-105 transition-transform shadow-lg"
-            >
-              <Image
-                src={post.image}
-                alt={post.title}
-                width={400}
-                height={500}
-                className="w-full h-144 object-cover"
-              />
-            </Link>
-          ))}
-        </div>
-      </section>
+  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-1 sm:gap-6">
+    {posts.map((post) => (
+      <Link
+        href={post.link}
+        key={post.id}
+        className="rounded-[24px] overflow-hidden  hover:scale-105 transition-transform duration-300 shadow-lg"
+      >
+        <Image
+          src={post.image}
+          alt={post.title}
+          width={322}
+          height={450}
+          className="object-cover w-[164px] h-[229px] sm:w-[322px] sm:h-[450px] rounded-[24px] mx-auto"
+        />
+      </Link>
+    ))}
+  </div>
+</section>
+
         {/* SKILLS TO EXPLORE */}
         <section className="mt-10">
         <SkillsToExplore />
       </section>
-        {/* POSTS TO EXPLORE */}
-        <section className="mt-10">
-        <h2 className="text-5xl  text-heading   mb-6">POSTS TO EXPLORE</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ml-11 mr-11 gap-6">
-          {posts.map((post) => (
-            <Link
-              href={post.link}
-              key={post.id}
-              className="rounded-xl overflow-hidden bg-gray-900 hover:scale-105 transition-transform shadow-lg"
-            >
-              <Image
-                src={post.image}
-                alt={post.title}
-                width={400}
-                height={500}
-                className="w-full h-144 object-cover"
-              />
-            </Link>
-          ))}
-        </div>
-      </section>
        {/* PROJECTS TO EXPLORE */}
        <section className="mt-16">
         <h2 className="text-5xl  text-heading   mb-6">PROJECTS TO EXPLORE</h2>
@@ -225,27 +233,29 @@ const HomePage = () => {
       </section>
 
      {/* POSTS TO EXPLORE */}
-     <section className="mt-10">
-        <h2 className="text-5xl  text-heading   mb-6">POSTS TO EXPLORE</h2>
+   <section className="mt-10 px-4 sm:px-6 md:px-10">
+  <h2 className="text-3xl sm:text-4xl md:text-5xl text-heading mb-6 text-center sm:text-left">
+    POSTS TO EXPLORE
+  </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ml-11 mr-11 gap-6">
-          {posts.map((post) => (
-            <Link
-              href={post.link}
-              key={post.id}
-              className="rounded-xl overflow-hidden bg-gray-900 hover:scale-105 transition-transform shadow-lg"
-            >
-              <Image
-                src={post.image}
-                alt={post.title}
-                width={400}
-                height={500}
-                className="w-full h-144 object-center"
-              />
-            </Link>
-          ))}
-        </div>
-      </section>
+  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-1 sm:gap-6">
+    {posts.map((post) => (
+      <Link
+        href={post.link}
+        key={post.id}
+        className="rounded-[24px] overflow-hidden  hover:scale-105 transition-transform duration-300 shadow-lg"
+      >
+        <Image
+          src={post.image}
+          alt={post.title}
+          width={322}
+          height={450}
+          className="object-cover w-[164px] h-[229px] sm:w-[322px] sm:h-[450px] rounded-[24px] mx-auto"
+        />
+      </Link>
+    ))}
+  </div>
+</section>
 
     </main>
 
