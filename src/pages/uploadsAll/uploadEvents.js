@@ -19,7 +19,7 @@ const safeParseJson = async (response) => {
         }
         return data;
       } catch (e) {
-        // fall through to text parsing
+         console.log("e",e)
       }
     }
 
@@ -107,7 +107,9 @@ const UploadVideos = () => {
       try {
         const user = await resolveCurrentUser();
         if (!user) {
-          // optional: prompt login
+          console.log("User not found");
+          toast.error("User not found");
+           router.push("/authpage");   
         }
       } catch {}
     })();
@@ -146,10 +148,30 @@ const UploadVideos = () => {
 
       if (!userId) {
         toast.error("User ID missing. Please login again.");
-        try { router.push("/authpage"); } catch {}
+        router.push("/authpage");
         return;
       }
-console.log("userId of event upload", userId);
+          if (!description) {
+        toast.error("Description is required.");
+        return;
+      }
+      if (!imageFile) {
+        toast.error("Image is required.");
+        return;
+      }
+      if (!selectedCategory) {
+        toast.error("Category is required.");
+        return;
+      }
+      if (!address) {
+        toast.error("Address is required.");
+        return;
+      }
+      if (!price) {
+        toast.error("Price is required.");
+        return;
+      } 
+       console.log("userId of event upload", userId);
  
       // --- Upload image if exists ---
       let imageUrl;
@@ -157,14 +179,15 @@ console.log("userId of event upload", userId);
         const formData = new FormData();
         formData.append("file", imageFile);
         formData.append("folder", "images");
-
+       
         const uploadRes = await fetch("/api/media/upload", {
           method: "POST",
           body: formData,
         });
         const uploadJson = await safeParseJson(uploadRes);
-
-        if (!uploadJson.success) {
+        console.log("uploadjson",uploadJson)
+         toast.success("Image uploaded successfully");
+        if (!uploadJson.url) {
           toast.error(uploadJson.message || "Image upload failed");
           return;
         }
@@ -195,7 +218,7 @@ console.log("userId of event upload", userId);
       }
 
       toast.success("Event published successfully");
-      router.push("/uploadsAll/uploadEvents");
+       
     } catch (e) {
       toast.error(e?.message || "Something went wrong");
     } finally {
