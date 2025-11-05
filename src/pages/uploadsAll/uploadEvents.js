@@ -138,7 +138,7 @@ const [uploading, setUploading] = useState(false);
   const handleImageChange = async (e) => {
   const file = e.target.files?.[0];
   if (!file) return;
-
+console.log("file",file)
   setImageFile(file);
   setImagePreview(URL.createObjectURL(file)); // temporary preview
   toast.info("Uploading image...");
