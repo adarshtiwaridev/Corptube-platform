@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
 
-First, run the development server:
 
-```bash
+🌐 CorpTube – Professional Networking Platform
+💡 Overview
+
+CorpTube is a next-generation professional networking platform, inspired by the power of LinkedIn, reimagined with speed, performance, and modern UI in mind.
+Built with Next.js, it offers a seamless experience for professionals to connect, share, and grow in the digital ecosystem.
+This project focuses on community building, career networking, and corporate collaboration, all packed into one optimized platform. ⚡
+
+✨ Key Features
+
+👤 User Profiles — Showcase experience, skills, and portfolios
+
+📝 Post & Share — Create posts, blogs, or job updates
+
+🤝 Connect & Network — Build meaningful professional connections
+
+💬 Messaging System — Real-time conversations (coming soon 🔜)
+
+🔐 Secure Authentication — Email & OTP-based login
+
+🧠 Super Admin Dashboard — Manage users, posts, and verification
+
+⚡ High Performance — Optimized with Next.js ISR & caching
+
+📱 Fully Responsive — Smooth UI on all devices
+
+🧠 Tech Stack
+Category	Technology
+Frontend	Next.js (App Router), React, Tailwind CSS, Shadcn UI
+Backend	Node.js, Express.js
+Database	MongoDB (Mongoose ORM)
+Auth System	JWT, OTP, bcrypt.js
+Cloud & Media	Cloudinary
+Extras	Redux Toolkit, Axios, Framer Motion, Sonner Toast
+📦 Folder Structure
+CorpTube/
+│
+├── app/               # Next.js App Router pages & layouts
+├── components/        # Reusable UI components
+├── lib/               # Utilities & API helpers
+├── models/            # MongoDB schemas
+├── pages/api/         # Backend API routes
+├── public/            # Static assets
+└── styles/            # Global styling
+
+⚙️ Setup Instructions
+
+Clone the Repository
+
+git clone https://github.com/adarsh2027/CorpTube.git
+
+
+Navigate into the project
+
+cd CorpTube
+
+
+Install dependencies
+
+npm install
+
+
+Add your .env file
+
+MONGO_URI=your_mongodb_uri
+NEXTAUTH_SECRET=your_secret
+CLOUDINARY_API_KEY=your_key
+
+
+Run the project
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Visit in browser
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+http://localhost:3000
 
-## Learn More
+🏷️ Topics
 
-To learn more about Next.js, take a look at the following resources:
+Next.js | React.js | Node.js | MongoDB | Express.js | Tailwind CSS | Shadcn UI | Professional Networking | Social Media Platform | LinkedIn Clone | MERN Stack | Full Stack App | Cloudinary | Authentication | Corporate Network
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+💬 GitHub Tagline
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+“Reimagining professional networking — built with Next.js, optimized for the future ⚡🌐”
 
-## Deploy on Vercel
+🌟 Vision
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To build India’s next-gen professional ecosystem, where talent meets opportunity — empowering every individual to connect, collaborate, and grow under one digital roof. 🚀

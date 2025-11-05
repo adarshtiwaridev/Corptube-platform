@@ -67,6 +67,7 @@ export default async function handler(req, res) {
       token, // optional: return token in body too (useful for mobile apps)
       data: {
         id: user._id,
+        userId: user.userId,
         fullName: user.fullName,
         email: user.email,
         accountType: user.accountType,

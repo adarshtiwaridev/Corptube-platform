@@ -4,6 +4,8 @@ import Otp from "../../../models/Otp";
 import { sendOTPEmail } from "../../../lib/nodemailer";
 import { signupSchema } from "../../../lib/zodSchemas/userSchema";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { serialize } from "cookie";
 
 export default async function handler(req, res) {
   await dbConnect();
@@ -110,14 +112,34 @@ export default async function handler(req, res) {
     // Delete OTP after successful signup
     await Otp.deleteMany({ email });
 
+    // Issue JWT + set cookie like login
+    const token = jwt.sign(
+      { id: newUser._id, email: newUser.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    const cookie = serialize("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+
+    res.setHeader("Set-Cookie", cookie);
+
     return res.status(201).json({
       success: true,
       message: "Account created successfully",
+      token,
       data: {
+        id: newUser._id,
         userId: newUser.userId,
         fullName: newUser.fullName,
         email: newUser.email,
         accountType: newUser.accountType,
+        profilePhoto: newUser.profilePhoto,
       },
     });
 
