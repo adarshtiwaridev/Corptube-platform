@@ -1,16 +1,51 @@
-import "./styles/globals.css";  // make sure this path is correct
+import "./styles/globals.css"; 
 import React from "react";
 import { Toaster } from 'sonner'
-// import { Provider } from "react-redux";
-// import { SessionProvider } from "next-auth/react";
-
-import authpage from './authpage';
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchPosts } from "../redux/slices/postsSlice";
+import { getVideo } from "../redux/slices/getvideoslice";
+import { getUploadPost } from "../redux/slices/ticketraiseslice";
+import { Provider } from "react-redux";
+import store from "../redux/store";
+import { fetchLoggedInUser } from "../redux/slices/authSlice";
+import { toggleLike } from "../redux/slices/postInteractionSlice";
+import { addComment } from "../redux/slices/postInteractionSlice";
+import { incrementView } from "../redux/slices/postInteractionSlice";
+import { incrementSave } from "../redux/slices/postInteractionSlice";
+import { useSelector } from "react-redux";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+// Custom wrapper component to trigger fetch once app loads
+
+const FetchPostsOnLoad = ({ children }) => {
+
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  useEffect(() => {
+    const userId = user?.id;
+    const postId = user?.postId;
+    const text = user?.text;
+    dispatch(toggleLike({userId, postId}));
+    dispatch(addComment({userId, postId, text}));
+    dispatch(incrementView({userId, postId}));
+    dispatch(incrementSave({userId, postId}));
+    dispatch(fetchLoggedInUser());
+    dispatch(fetchPosts());
+    dispatch(getVideo());
+    dispatch(getUploadPost());
+  }, [dispatch]);
+
+  return children;
+};
+
   return (
-    // <SessionProvider session={session}>
-    <>
-      <Component {...pageProps} />
+ <Provider store={store}>
+
+    
+ <FetchPostsOnLoad>
+
+ <Component {...pageProps} />
   <Toaster
   position="top-center"
   richColors
@@ -26,11 +61,14 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         "bg-black/70 text-blue-400 border border-blue-500/40 font-medium rounded-md px-3 py-1 hover:bg-black/90 transition",
     },
   }}
-/>
+  />
+
+  </FetchPostsOnLoad>
 
 
-    </>
-    // </SessionProvider>
+    </Provider>
+    
+ 
   );
 }
 

@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema(
       default: "/images/avatar.png",
     },
   },
+  
   { timestamps: true }
 );
 

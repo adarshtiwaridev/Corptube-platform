@@ -50,3 +50,6 @@ next-env.d.ts
 .vscode/
 *.swp
 .next
+
+# Snyk Security Extension - AI Rules (auto-generated)
+.windsurf/rules/snyk_rules.md
