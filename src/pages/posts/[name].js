@@ -240,13 +240,11 @@ const handleRouting = (label) => {
 </div>
 
         <div className="absolute inset-0 flex flex-col justify-end items-center text-center p-6  ">
-          <h3 className="text-xs sm:text-sm font-semibold mb-2 tracking-wide">
-            OPEN RECRUITMENT DPS CLASS
-          </h3>
+           
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide">
-            Coming <span className="text-[#1e90ff]">Soon</span>
+            {filteredPosts[0]?.title}
           </h1>
-          <p className="text-[10px] sm:text-xs mt-3 opacity-80">@designprofessionalofsmartphone</p>
+          <p className="text-[10px] sm:text-xs mt-3 opacity-80">{filteredPosts[0]?.description}</p>
         </div>
 
         {/* Left/Right Arrows */}

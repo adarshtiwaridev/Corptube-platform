@@ -96,10 +96,15 @@ const UploadVideos = () => {
   const [descClosing, setDescClosing] = useState(false);
   const [price, setPrice] = useState("");
   const [address, setAddress] = useState("");
-  const [imageFile, setImageFile] = useState(null);
+  
   const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const categories = ["ENTREPRENEUR", "CREATOR", "BUSINESSPERSON"];
+const [imageFile, setImageFile] = useState(null);
+const [imagePreview, setImagePreview] = useState(null);
+const [imageUrl, setImageUrl] = useState(null);
+const [uploading, setUploading] = useState(false);
 
   // ------------------ Check user on mount ------------------
   useEffect(() => {
@@ -129,102 +134,103 @@ const UploadVideos = () => {
     }, 220);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setIsSubmitting(true);
-      console.log("handleSubmit of event upload 1");
 
-      // Validate user
-      const currentUser = await resolveCurrentUser();
-      console.log("handleSubmit of event upload 2");
-      console.log("resolved user of event upload", currentUser);
+  const handleImageChange = async (e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
 
-      const parsedUser = currentUser;
-      console.log("handleSubmit of event upload 3");
+  setImageFile(file);
+  setImagePreview(URL.createObjectURL(file)); // temporary preview
+  toast.info("Uploading image...");
 
-      const userId = parsedUser?.userId;
-      console.log("handleSubmit of event upload 4");
+  try {
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("folder", "images");
 
-      if (!userId) {
-        toast.error("User ID missing. Please login again.");
-        router.push("/authpage");
-        return;
-      }
-          if (!description) {
-        toast.error("Description is required.");
-        return;
-      }
-      if (!imageFile) {
-        toast.error("Image is required.");
-        return;
-      }
-      if (!selectedCategory) {
-        toast.error("Category is required.");
-        return;
-      }
-      if (!address) {
-        toast.error("Address is required.");
-        return;
-      }
-      if (!price) {
-        toast.error("Price is required.");
-        return;
-      } 
-       console.log("userId of event upload", userId);
- 
-      // --- Upload image if exists ---
-      let imageUrl;
-      if (imageFile) {
-        const formData = new FormData();
-        formData.append("file", imageFile);
-        formData.append("folder", "images");
-       
-        const uploadRes = await fetch("/api/media/upload", {
-          method: "POST",
-          body: formData,
-        });
-        const uploadJson = await safeParseJson(uploadRes);
-        console.log("uploadjson",uploadJson)
-         toast.success("Image uploaded successfully");
-        if (!uploadJson.url) {
-          toast.error(uploadJson.message || "Image upload failed");
-          return;
-        }
-        imageUrl = uploadJson.data?.secure_url;
-      }
+    const uploadRes = await fetch("/api/media/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-      // --- Build payload ---
-      const payload = {
-        userId,
-        description,
-        imageUrl,
-        price: price ? Number(price) : undefined,
-        address: address || undefined,
-        userCategory:
-          selectedCategory !== "Select Category" ? selectedCategory : undefined,
-      };
+    const uploadJson = await safeParseJson(uploadRes);
+    console.log("uploadJson", uploadJson);
 
-      const resp = await fetch("/api/uploads/post", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const out = await safeParseJson(resp);
-      if (!out.success) {
-        toast.error(out.message || "Publish failed");
-        return;
-      }
-
-      toast.success("Event published successfully");
-       
-    } catch (e) {
-      toast.error(e?.message || "Something went wrong");
-    } finally {
-      setIsSubmitting(false);
+    if (!uploadJson?.data?.secure_url) {
+      toast.error(uploadJson.message || "Image upload failed");
+      return;
     }
-  };
+
+    const uploadedUrl = uploadJson.data.secure_url;
+    setImageUrl(uploadedUrl);
+    setImagePreview(uploadedUrl); // update preview with final Cloudinary link
+    toast.success("Image uploaded successfully!");
+  } catch (err) {
+    console.error(err);
+    toast.error(err.message || "Image upload failed");
+  } finally {
+    setUploading(false);
+  }
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    setIsSubmitting(true);
+
+    // --- Validate user ---
+    const currentUser = await resolveCurrentUser();
+    const userId = currentUser?.userId;
+
+    if (!userId) {
+      toast.error("User ID missing. Please login again.");
+      router.push("/authpage");
+      return;
+    }
+
+    // --- Validate fields ---
+    if (!title) return toast.error("Title is required.");
+    if (!description) return toast.error("Description is required.");
+    if (!selectedCategory) return toast.error("Category is required.");
+    if (!address) return toast.error("Address is required.");
+    if (!price) return toast.error("Price is required.");
+    if (!imageUrl) return toast.error("Please upload an image first.");
+
+    // --- Build payload ---
+    const payload = {
+      userId,
+      title,
+      description,
+      imageUrl,
+      price: Number(price),
+      address,
+      userCategory:
+        selectedCategory !== "Select Category" ? selectedCategory : undefined,
+    };
+
+    const resp = await fetch("/api/uploads/post", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const out = await safeParseJson(resp);
+    if (!out.success) {
+      toast.error(out.message || "Publish failed");
+      return;
+    }
+
+    toast.success("Event published successfully!");
+  } catch (e) {
+    console.error(e);
+    toast.error(e.message || "Something went wrong");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   // ------------------ JSX ------------------
   return (
@@ -249,40 +255,55 @@ const UploadVideos = () => {
           onSubmit={handleSubmit}
           className="w-[78%] mx-auto flex justify-center gap-4"
         >
-          {/* LEFT: Upload Cover */}
-          <div className="border-4 border-[#575FFE] rounded-3xl bg-white flex flex-col items-center justify-center gap-6 py-40 px-20 ring-2 ring-[#8d92eb]">
-            <div className="circle w-64 h-64 rounded-full border-[#575FFE] border-4 flex items-center justify-center">
-              <Link href="#">
-                <Image
-                  src="/assets/Untitleddesign(6)1.png"
-                  alt="UPLOAD VIDEO"
-                  width={170}
-                  height={170}
-                  className="object-fill"
-                  priority
-                />
-              </Link>
-            </div>
+       {/* LEFT: Upload Cover */}
+<div className="border-4 border-[#575FFE] rounded-3xl bg-white flex flex-col items-center justify-center gap-6 py-40 px-20 ring-2 ring-[#8d92eb]">
+  <div className="circle w-64 h-64 rounded-full border-[#575FFE] border-4 flex items-center justify-center overflow-hidden">
+    
+      <Image
+        src={imagePreview || "/assets/Untitleddesign(6)1.png"}
+        alt="UPLOAD COVER"
+        width={170}
+        height={170}
+        className="object-cover"
+        priority
+      />
+  
+  </div>
 
-            <div>
-              <input
-                type="file"
-                id="fileUpload"
-                accept="image/*"
-                className="hidden"
-                onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-              />
-              <label
-                htmlFor="fileUpload"
-                className="p-2.5 px-9 bg-[#575FFE] text-3xl font-bold text-white rounded-full cursor-pointer hover:bg-[#3d43ca]"
-              >
-                UPLOAD COVER
-              </label>
-            </div>
-          </div>
+  <div>
+    <input
+      type="file"
+      id="fileUpload"
+      accept="image/*"
+      className="hidden"
+      onChange={handleImageChange} // ✅ trigger upload on selection
+    />
+    <label
+      htmlFor="fileUpload"
+      className={`p-2.5 px-9 bg-[#575FFE] text-3xl font-bold text-white rounded-full cursor-pointer hover:bg-[#3d43ca] ${
+        uploading ? "opacity-50 cursor-not-allowed" : ""
+      }`}
+    >
+      {uploading ? "UPLOADING..." : "UPLOAD COVER"}
+    </label>
+  </div>
+</div>
 
+           
           {/* RIGHT: Details */}
           <div className="relative overflow-hidden bg-[#575FFE] rounded-r-3xl text-black my-5 py-14 px-8 flex flex-col justify-between gap-5 w-full">
+            {/* TITLE */}
+            <div>
+              <input
+                type="text"
+                name="title"
+                className="w-full bg-white px-4 py-2 mb-2.5 rounded-xl border-[#575FFE] focus:outline-none focus:ring-2 focus:ring-[#575FFE] text-lg"
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            
             {/* DESCRIPTION */}
             <div
               className="rounded-2xl bg-white text-5xl text-[#575FFE] font-extrabold flex flex-col items-center px-18 py-16 cursor-pointer"

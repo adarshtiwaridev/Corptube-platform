@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
   try {
     if (method === "POST") {
-      const { user, userId, description, imageUrl, price, address, userCategory } = req.body || {};
+      const { user, title, userId, description, imageUrl, price, address, userCategory } = req.body || {};
 
       // Resolve user
       let userDoc = null;
@@ -19,6 +19,7 @@ export default async function handler(req, res) {
 
       const doc = await UserPostUpload.create({
         user: userDoc._id,
+        title,
         description,
         imageUrl,
         price,

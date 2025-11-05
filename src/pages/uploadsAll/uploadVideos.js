@@ -39,6 +39,7 @@ const UploadVideos = () => {
   const [categoryOpen, setCategoryOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('select category');
   const categories = ['ENTREPRENEUR', 'CREATOR', 'BUISINESSPERSON'];
+  const [title, setTitle] = useState("");
 
   // 📂 File states
   const [videoFile, setVideoFile] = useState(null);
@@ -107,6 +108,7 @@ const UploadVideos = () => {
       const userId = parsedUser?.userId;
 
       if (!userId) return toast.error('User ID missing. Please login again.');
+      if (!title) return toast.error('Title is required.');
       if (!videoFile) return toast.error('Please select a video');
       if (!thumbFile) return toast.error('Please select a cover image');
 
@@ -121,6 +123,7 @@ const UploadVideos = () => {
       // Payload for DB
       const payload = {
         userId,
+        title,
         userCategory: selectedCategory !== 'select category' ? selectedCategory : undefined,
         videoUrl,
         thumbnailUrl,
@@ -219,6 +222,18 @@ const UploadVideos = () => {
             <div className="rounded-2xl bg-white text-5xl text-[#575FFE] font-extrabold flex flex-col items-center px-18 py-9.5">
               <p>UPLOAD</p>
               <p>COVER</p>
+            </div>
+
+                {/* TITLE */}
+            <div>
+              <input
+                type="text"
+                name="title"
+                className="w-full bg-white px-4 py-2 mb-2.5 rounded-xl border-[#575FFE] focus:outline-none focus:ring-2 focus:ring-[#575FFE] text-lg"
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
 
             {/* CATEGORY SECTION */}

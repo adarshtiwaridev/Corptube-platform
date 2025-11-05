@@ -58,6 +58,7 @@ const UploadVideos = () => {
   const [descOpen, setDescOpen] = useState(false);
   const [descClosing, setDescClosing] = useState(false);
   const categories = ["ENTREPRENEUR", "CREATOR", "BUISINESSPERSON"];
+  const [title, setTitle] = useState("");
 
   const [imageFile, setImageFile] = useState(null);
   const [description, setDescription] = useState("");
@@ -103,6 +104,10 @@ const UploadVideos = () => {
         toast.error('User ID missing. Please login again.');
         return;
       }
+      if (!title) {
+        toast.error('Title is required.');
+        return;
+      }
 
       if (!imageFile) {
         toast.error('Please select an image');
@@ -127,6 +132,7 @@ const UploadVideos = () => {
       // 🔹 Prepare Payload
       const payload = {
         userId,
+        title,
         userCategory: selectedCategory !== 'select category' ? selectedCategory : undefined,
         description,
         imageUrl,
@@ -209,7 +215,17 @@ const UploadVideos = () => {
 
           {/* RIGHT PANEL */}
           <div className='bg-[#575FFE] rounded-r-3xl text-black my-5 py-14 px-8 flex flex-col justify-between gap-5 relative overflow-hidden'>
-            
+                {/* TITLE */}
+            <div>
+              <input
+                type="text"
+                name="title"
+                className="w-full bg-white px-4 py-2 mb-2.5 rounded-xl border-[#575FFE] focus:outline-none focus:ring-2 focus:ring-[#575FFE] text-lg"
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
             {/* DESCRIPTION */}
             <div
               className="rounded-2xl bg-white text-5xl text-[#575FFE] font-extrabold flex flex-col items-center px-18 py-16 cursor-pointer"

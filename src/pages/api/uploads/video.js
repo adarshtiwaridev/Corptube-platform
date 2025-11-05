@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
   try {
     if (method === "POST") {
-      const { user, userId, videoUrl, thumbnailUrl, userCategory, description } = req.body || {};
+      const { user, title, userId, videoUrl, thumbnailUrl, userCategory, description } = req.body || {};
 
       if (!videoUrl || !thumbnailUrl) {
         return res.status(400).json({ success: false, message: "videoUrl and thumbnailUrl are required" });
@@ -23,6 +23,7 @@ export default async function handler(req, res) {
 
       const doc = await UserVideoUpload.create({
         user: userDoc._id,
+        title,
         videoUrl,
         thumbnailUrl,
         userCategory: userCategory || userDoc.category || undefined,

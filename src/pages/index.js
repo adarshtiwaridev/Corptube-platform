@@ -1,7 +1,7 @@
 // pages/index.js
 "use client";
 
-import React from "react"; 
+import React, { useState, useEffect } from "react"; 
 import Link from "next/link";
 import Sidebar from "../Components/Sidebar";
 import { useRouter } from "next/navigation";
@@ -12,6 +12,13 @@ import SkillsToExplore from "../Components/SkillsToExplore";
 
 const HomePage = () => {
  const router = useRouter();
+  const [randomComponent, setRandomComponent] = useState(null);
+
+    useEffect(() => {
+    const components = [<PostsToExplore key="posts" />, <SkillsToExplore key="skills" />, <ProjectToExplore key="projects" />];
+    const randomIndex = Math.floor(Math.random() * components.length);
+    setRandomComponent(components[randomIndex]);
+  }, []);
 
   return (
     <div className=" bg-gray-900">
@@ -84,7 +91,15 @@ const HomePage = () => {
       <PostsToExplore />
       <SkillsToExplore />
       <ProjectToExplore />
+    
+ 
+      {randomComponent ? (
+        <div className="transition-all duration-500 ease-in-out">{randomComponent}</div>
+      ) : (
+        <p className="text-center">Loading...</p>
+      )}
 
+    
 
     </main>
 

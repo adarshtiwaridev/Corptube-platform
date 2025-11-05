@@ -19,13 +19,31 @@ export default async function handler(req, res) {
            (await UserVideoUpload.findById({ _id: postId }));
     if (!post) return res.status(404).json({ success: false, message: "Post not found" });
 
-    if (!post.savedBy.includes(userId)) {
-      post.savedBy.push(userId);
-      post.totalSaved += 1;
-      await post.save();
-    }
+   // ✅ Ensure savedBy and totalSaved are defined
+if (!Array.isArray(post.savedBy)) {
+  post.savedBy = [];
+}
+if (typeof post.totalSaved !== "number") {
+  post.totalSaved = 0;
+}
 
-    return res.status(200).json({ success: true, totalSaved: post.totalSaved });
+// ✅ Toggle Save Logic
+if (!post.savedBy.includes(userId)) {
+  post.savedBy.push(userId);
+  post.totalSaved += 1;
+} else {
+  // ✅ Optional: Handle unsave toggle
+  post.savedBy = post.savedBy.filter((id) => id.toString() !== userId.toString());
+  post.totalSaved = Math.max(post.totalSaved - 1, 0);
+}
+
+await post.save();
+
+return res.status(200).json({
+  success: true,
+  totalSaved: post.totalSaved,
+  savedBy: post.savedBy,
+});
   } catch (err) {
     return res.status(500).json({ success: false, message: err.message });
   }
